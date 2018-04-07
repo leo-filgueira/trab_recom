@@ -1,0 +1,56 @@
+ARQUIVOS E COMANDOS PARA UTILIZAÇÃO NO LATEX
+
+1) Salve na mesma pasta os seguintes arquivos:
+        - abnt.cls
+        - abnt-num.bst
+        - cvs-id.def
+        - ficha_catalografica.pdf
+        - logoUFF.pdf
+        - monografia_exemplo.pdf
+        - monografia_exemplo.tex
+        - referencias.bib
+
+2) Modifique o nome do arquivo monografia_exemplo.tex para o nome apropriado: seu número de matrícula e a sigla apropriada (pf1, pf2final ou pf2bib, conforme explicado nas páginas das disciplinas) separada por hífen ou travessão. Exemplo: 20754123_pf1.tex .
+   
+3) Edite o arquivo tex acima com os dados do seu trabalho.
+   
+4) Edite o arquivo referencias.bib com informações das referências bibliográficas feitas em seu trabalho final, sem alterar o nome do arquivo.
+
+
+INSTRUÇÕES PARA INCLUSÃO DE FICHA DE CATALOGAÇÇÃO BIBLIOGRÁFICA NO ARQUIVO TEX
+
+	A ficha de catalogação bibliográfica deve ser incluída na versão final corrigida da monografia. 
+	Essa ficha será enviada para o aluno em um arquivo do Word (.doc ou .docx). 
+	
+	Para incluir esses dados no trabalho siga os seguintes passos:
+
+1) Abra o arquivo do word com as informações da ficha catalográfica.
+
+2) Apague o texto que vem antes da ficha, indicando posição e tamanho, inclusive a linha abaixo dele:
+
+        Verso da folha de rosto
+        Ficha 7,5cm X 12,5cm
+        - - - - - - - - - -
+
+3) Redefina todas as margens como 0 (zero):
+
+        > Layout da Página > Margens > Margens personalizadas
+           - Atribua o valor 0 para Superior, Inferior, Esquerda e Direita.
+        > OK
+        OBS.: Se aparecer alguma mensagem de erro, clique em "Ignorar".
+
+4) Mude o tamanho da página:
+        > Layout da Página > Tamanho > Mais tamanhos de Papel
+           - Largura: 12,5cm
+           - Altura: 7,5cm
+        > OK
+
+5) Elimine linhas excedentes de forma que o texto fique em uma única página.
+
+6) Salve o arquivo em formato pdf.
+        > Arquivo > Salvar e Enviar > Criar Documento PDF/XPS > Criar PDF/XPS
+           - Nome do Arquivo: ficha_catalografica.pdf
+           - OBS.1: O nome do arquivo tem que ser exatamente este. Copie e cole para não ter erro.
+           - OBS.2: O arquivo tem que ser salvo na mesma pasta em que está o arquivo .tex.
+        > Publicar.
+           - Se aparecer uma mensagem dizendo que o arquivo já existe, confirme a substituição.

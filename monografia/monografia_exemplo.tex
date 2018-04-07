@@ -1,0 +1,379 @@
+\documentclass[12pt,a4paper,header]{abnt}
+
+\usepackage[brazil]{babel}        
+\usepackage[utf8]{inputenc} 
+
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage{amsmath,amssymb,amsfonts,undertilde}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{fancyhdr}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Teoremas, definicoes, etc%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheorem{thm}{Teorema}[section]
+\newtheorem{cor}[thm]{Corolário}
+\newtheorem{lem}[thm]{Lema}
+\newtheorem{defi}[thm]{Definição}
+\newtheorem{exe}[thm]{Exemplo}
+\newtheorem{prop}[thm]{Proposição}
+
+\renewcommand{\ABNTchapterfont}{\bfseries}
+\renewcommand{\ABNTsectionfont}{\bfseries}
+
+\fancypagestyle{logouff}{%
+	\renewcommand{\headrulewidth}{0pt}
+	\fancyhead{}
+	\fancyhead[R]{\includegraphics[width=0.7\textwidth]{logoUFF.pdf}}% Your logo/image
+  	\setlength{\headheight}{30pt} 
+  	\setlength{\headsep}{2cm}
+}
+
+
+
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%colocar aqui o nome do aluno%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\autor{Nome do Aluno}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%colocar aqui o título da monigrafia%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\titulo{Título da Monografia}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%colocar aqui o nome do orientador%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\orientador{Nome do Orientador}  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%colocar aqui o nome do co-orientador, caso exista%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\coorientador{Nome Co-orientador, caso exista}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%colocar aqui a data da apresentacao da monografia%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\data{30 de fevereiro de 2013}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%nao mexer até a linha 180%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\comentario{Monografia apresentada para obtenção do grau de Bacharel em Estatística pela Universidade Federal Fluminense.}
+
+\instituicao{Departamento de Estatística \par Instituto de Matemática e Estatística \par Universidade Federal Fluminense}
+
+\local{Niterói - RJ, Brasil}
+
+\capa
+
+\vspace{10cm}
+
+
+%folha de rosto
+%--------------
+
+\begin{titlepage}
+
+\thispagestyle{logouff}
+
+\vspace{2cm}
+
+\hspace{.2\textwidth} % posicionando a minipage
+\begin{minipage}{.7\textwidth}
+
+\begin{flushright}
+
+{\large \bf \ABNTautordata} \\[3cm]
+
+{\Large \bf \ABNTtitulodata}\\[3cm]
+
+{\bf Trabalho de Conclusão de Curso}\\[1cm]
+
+\end{flushright}
+
+\begin{espacosimples}
+
+\ABNTcomentariodata
+
+\end{espacosimples}
+
+\vspace{1cm}
+
+\hfill Orientador: Prof. \ABNTorientadordata
+
+\end{minipage}
+
+\vspace{7cm}
+
+\begin{center}
+
+\ABNTlocaldata
+
+\ABNTdatadata
+
+\end{center}
+
+\end{titlepage}
+
+
+%ficha catalografica
+%-------------------
+\newpage
+\null
+\vfill
+
+%\begin{left}
+\fbox{
+\includegraphics[scale=1]{ficha_catalografica.pdf}
+}
+%\end{center}
+\vspace{1cm}
+
+%folha de aprovacao com as assinaturas - Editar os membros da banca
+%------------------------------------------------------------------
+\begin{folhadeaprovacao}
+
+\thispagestyle{logouff}
+
+\hspace{.2\textwidth} % posicionando a minipage
+\begin{minipage}{.7\textwidth}
+
+\begin{flushright}
+
+{\large \bf \ABNTautordata}\\[1cm]
+
+{\large \bf \ABNTtitulodata}\\[1cm]
+
+\end{flushright}
+
+Monografia de Projeto Final de Graduação sob o título \textit{``\ABNTtitulodata''},
+defendida por \ABNTautordata~e aprovada em \ABNTdatadata, na cidade de Niterói,
+no Estado do Rio de Janeiro, pela banca examinadora constituída pelos
+professores:
+
+\begin{flushright}
+
+\begin{espacosimples}
+
+%assinatura
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preencher os dados dos membros da banca%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\vspace{2cm}
+\noindent\rule{8cm}{0.4pt}\\
+{\bf Profa. Dra. Nome do Orientador}\\
+Departamento de Estatística -- UFF\\
+
+
+\vspace{2cm}
+\noindent\rule{8cm}{0.4pt}\\
+{\bf Prof. Dr. Nome do 1o membro da banca}\\
+Instituicao do 1o membro da banca\\
+
+
+\vspace{2cm}
+\noindent\rule{8cm}{0.4pt}\\
+{\bf Profa. Me. Nome do 2o membro da banca}\\
+Instituicao do 2o membro da banca\\
+
+\end{espacosimples}
+
+\end{flushright}
+
+\vspace{2cm}
+\hfill Niterói, \ABNTdatadata
+
+\end{minipage}
+
+
+%\vfill \hfill Niterói, \ABNTdatadata \hspace{1cm} 
+
+
+\end{folhadeaprovacao}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%escreva aqui o resumo do seu trabalho%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{resumo}
+Aqui entra o resumo da monografia.
+
+\vspace{1cm}
+\noindent Palavras-chaves: 
+%Aqui entram as palavras chaves.
+
+
+\end{resumo}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%escreva aqui a sua dedicatória% (opcional)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Dedicatória}
+Aqui entra a sua dedicatória. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%escreva aqui seus agradecimentos% (opcional)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Agradecimentos}
+Aqui entram os agradecimentos. 
+
+
+
+\tableofcontents{}
+\listoffigures
+\listoftables
+
+
+
+\chapter{Introdução} \label{cap:introducao}
+
+Escreva aqui o capítulo introdutório da sua monografia. Contextualize o problema e apresente motivações para o desenvolvimento deste trabalho. 
+
+Termine o capítulo de introdução citando brevemente, em apenas um parágrafo, o que será feito em cada capítulo deste trabalho.
+
+Não se aconselha colocar os objetivos aqui, pois eles terão que ser repetidos no capítulo de Objetivos.
+
+A revisão bibliográfica pode também ser incluída aqui ou no capítulo de Materiais e Métodos.
+
+
+\chapter{Objetivos}
+Apresente aqui os objetivos do seu trabalho. Se quiser pode dividir seus objetivos em gerais e específicos (ou principal e secundário). Este é um capítulo curto, cuja finalidade é especificar separada e claramente os objetivos do trabalho.
+
+
+\chapter{Materiais e Métodos}
+
+Apresente aqui os materiais e métodos usados na monografia. 
+
+Este capítulo pode ser modificado de acordo com o interesse do aluno e do orientador, dependendo do trabalho desenvolvido. Crie tantas seções quantas forem necessárias; a revisão bibliográfica pode também ser incluída aqui.
+
+
+\section{Algumas Dicas}
+
+Separe em seções para organizar melhor seu texto. Use os comandos \verb|\section| e \verb|\subsection| para isso. 
+
+Sempre que preciso faça as referências usando o comando \verb|\cite|, como por exemplo, ``para mais informações sobre esse assunto veja o livro de Larson \cite{larson}.''
+
+Use os comandos a seguir para apresentar teoremas, definições, proposições, exemplos, etc. Dessa forma a numeração é feita de forma automática. 
+
+{\defi
+Abra e feche as chaves e dentro delas coloque o comando \verb|\defi| seguido da definição. 
+}
+
+{\thm
+Abra e feche as chaves e dentro delas coloque o comando \verb|\thm| seguido do enunciado do teorema. 
+}
+
+{\prop
+Abra e feche as chaves e dentro delas coloque o comando \verb|\prop| seguido do enunciado da proposição.
+}
+
+
+{\exe
+Abra e feche as chaves e dentro delas coloque o comando \verb|\exe| seguido do exemplo.
+}
+
+
+
+
+\chapter{Análise dos Resultados}
+
+
+Neste capítulo deve-se apresentar os resultados, podendo comentá-los e discuti-los, comparando-os com resultados da bibliografia já existente. Use seções, se apropriado.
+
+Para que as tabelas e figuras sejam incluídas corretamente nas listas de tabelas e figuras use os comandos 
+\verb|\begin{table}...\end{table}| e \verb|\begin{figure}...\end{figure}|. Veja como nos exemplos a seguir.
+
+Primeiro o exemplo de uma tabela. 
+
+\begin{table}[h!]
+\centering
+\caption{Tabela exemplo} \label{fig:exemplo}
+\begin{tabular}{cc}
+\hline
+Ano & Produção (1.000t)\\
+\hline
+1996 & 2.536\\
+1997 & 2.666\\
+1998 & 3.750\\
+1999 & 2.007\\
+2000 & 2.080\\
+\hline
+\end{tabular}
+\end{table}
+
+Agora veja como incluir figuras.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\linewidth]{logoUFF.pdf}
+\caption{Figura exemplo} \label{tab:exemplo}
+\end{figure}
+
+Use o comando \verb|ref| para fazer referências das tabelas e figuras ao longo do texto. Por exemplo, podemos nos referencias à Figura \ref{fig:exemplo} ou à Tabela \ref{tab:exemplo}. 
+
+O mesmo comando \verb|ref| pode ser usado para fazer referência à capítulos, seções, equações, etc. Basta que tenha sido definido um \verb|label| para cada um deles. Por exemplo, se quisermos fazer referência ao número do capítulo Introdução basta digitar \verb|\ref{cap:introducao}|, veja como: ``... como comentado no Capítulo \ref{cap:introducao}, na introdução deste trabalho''. 
+
+
+
+
+\chapter{Conclusão}
+
+Para finalizar seu trabalho faça o capítulo de conclusão. Neste capítulo deve ser feito um breve resumo de tudo que foi feito e as principais conclusões obtidas.
+
+
+
+%A bibliografia é feita automaticamente com o comando abaixo
+%No arquivo referencias.bib devem ser incluídos todos os textos referenciados nesse trabalho.
+\bibliographystyle{abnt-num} %abnt-num ou abnt-alf
+\bibliography{referencias}
+
+
+%Os anexos devem ser intorduzidos ao final do trabalho, depois das referências
+\anexo
+
+
+
+\chapter{Título do primeiro anexo}
+
+Caso você ache interessante, adicione anexos ao trabalho. Estes devem vir depois das referências bibliográficas. 
+
+
+
+\chapter{Título do segundo anexo}
+
+Dessa forma você pode incluir quantos anexos quiser. 
+
+
+
+
+\end{document}
