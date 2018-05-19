@@ -12,7 +12,6 @@
 
 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Teoremas, definicoes, etc%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -259,19 +258,54 @@ Aqui entram os agradecimentos.
 
 A partir do aumento de informação disponível com a popularização da Internet e com a possibilidade de armazenar essas informações surge o desafio de lidar com este grande conjunto de dados\cite{isinkaye2015recommendation}. Este aumento de informações desafia o site, como lojas on-line, que recebem todas as informações dos usuários que visitam o endereço, mas também pode se tornar um problema para o usuário que, diante da grande quantidade de produtos disponíveis para compra, pode levar muito tempo para achar o produto desejado\cite{mild2002collaborative}.
 
-Sistemas de recomendação são técnicas que filtram um grande conjunto de dados, tendo como base informações dos usuários\cite{takahashi2015estudo}. A partir dessas técnicas são previstas as notas que os usuários dariam a determinados itens, que podem ser dos mais variados tipos, e, para um indivíduo, recomenda-se o(s) item(ns) que obtiveram uma nota prevista maior\cite{shapira2011recommender}. Estes sistemas de recomendação beneficiam o usuário e a loja, pois eles aumentam o desempenho da loja, fazendo-a vender uma quantidade maior de produtos, e também facilitam a procura do usuário fazendo-o achar produto(s) desejados em menos tempo\cite{isinkaye2015recommendation}.
+Sistemas de recomendação são técnicas de \textit{machine learning} que filtram um grande conjunto de dados, tendo como base informações dos usuários\cite{takahashi2015estudo}. A partir dessas técnicas são previstas as notas que os usuários dariam a determinados itens, que podem ser dos mais variados tipos, e, para um indivíduo, recomenda-se o(s) item(ns) que obtiveram uma nota prevista maior\cite{shapira2011recommender}. Os sistemas de recomendação têm como objetivo recomendar itens que interessariam aos usuários\cite{melville2011recommender}, beneficiando o usuário e a loja, pois eles aumentam o desempenho da loja, fazendo-a vender uma quantidade maior de produtos, e também facilitam a procura do usuário fazendo-o achar produto(s) desejados em menos tempo\cite{isinkaye2015recommendation}. 
 
-É facilmente perceptível no cotidiano o uso de sistemas de recomendação em ambientes on-line. Ao usar a Netflix, sugestões para o usuário são oferecidas, baseadas nas atrações já assistidas e/ou avaliadas. Sites de compras como a Amazon também oferecem sugestões de produtos ao usuário baseado em visitas à página dos produtos ou no comportamento de outros usuários que compraram um mesmo produto. Também em redes sociais, como no YouTube, são sugeridos vídeos baseados no histórico do internauta e nas suas avaliações.
+É facilmente perceptível no cotidiano o uso de sistemas de recomendação em ambientes on-line. Ao usar a \textit{Netflix}, sugestões para o usuário são oferecidas, baseadas nas atrações já assistidas e/ou avaliadas. Sites de compras como a \textit{Amazon} também oferecem sugestões de produtos ao usuário baseado em visitas à página dos produtos ou no comportamento de outros usuários que compraram um mesmo produto. Também em redes sociais, como no \textit{YouTube}, são sugeridos vídeos baseados no histórico do internauta e nas suas avaliações, ou então no \textit{Facebook}, que recomenda lista de pessoas que o usuário pode conhecer\cite{gorakala2015building}.
+
+Em geral, sistemas de recomendação utilizam como informação a avaliação (\textit{rating}) dada pelos usuários aos itens, podendo a avaliação estar expressa de diferentes maneiras\cite{shapira2011recommender}:
+
+\begin{itemize}
+
+\item Avaliações numéricas: O usuário avalia um item numa escala numérica, como no site da \textit{Amazon}, onde o usuário dá uma nota de até 5 estrelas.
+
+\item Avaliações qualitativas: A avaliação é dada por frases definidas, como: "Concordo totalmente", "Concordo parcialmente", ...
+
+\item Avaliações binárias: O usuário seleciona se gostou ou não gostou do item, como a \textit{Netflix}, atualmente, recebe as avaliações.
+
+\item Avaliação unária: A indicação se refere a se o usuário visualizou, comprou ou então avaliou o item positivamente.
+
+\end{itemize}
+
+Os algoritmos de recomendação utilizam uma matriz, chamada de matriz de avaliações (\textit{ratings matrix}), usualmente representada desta forma:
+
+\begin{table}[!h]
+\centering
+\caption{Típica matriz de avaliações}
+\label{rating_matrix}
+\begin{tabular}{c|c|c|c|c}
+\hline \\
+            & Item 1      & Item 2      & $\cdots$ & Item m      \\
+Usuário 1   & $r_{(1, 1)}$ &             & $\cdots$  &             \\
+Usuário 2   &  & $r_{(2, 2)}$ & $\cdots$ & $r_{(2, m)}$ \\
+$\vdots$       &    $\vdots$  & $\vdots$       &  $\ddots$ & $\vdots$ \\
+Usuário $n$ & $r_{(n, 1)}$ &             & $\cdots$ & $r_{(n, m)}$ \\
+\hline
+\end{tabular}
+\end{table}
+
+Onde $r_{(i, j)}$ é a avaliação (\textit{rating}) do usuário $i$ dado ao item $j$. Em geral, os usuários não tiveram contato com todos os itens, então os itens não recebem avaliações de todos os usuários, produzindo então uma matriz esparsa (com grande quantidade de valores faltantes). Os algoritmos buscam, então, preencher a matriz de avaliações com previsões para os valores faltantes.
 
 \section{Técnicas de recomendação}
 
-Existem diferentes algoritmos de recomendação: Content-based filtering, Collaborative filtering e Hybrid Recommender Systems\cite{melville2011recommender}.
+Existem diferentes categorias de sistemas de recomendação, que podem ser classificados em: Filtragem baseada em conteúdo (\textit{Content-based filtering}), filtragem colaborativa (\textit{Collaborative filtering}) e sistemas de recomendação híbridos (\textit{Hybrid Recommender Systems})\cite{melville2011recommender}.
 
-\subsection{Content-based filtering}
+\subsection{Filtragem baseada em conteúdo}
 
-\subsection{Collaborative filtering}
+A ideia por trás dos sistemas nesta categoria é recomendar itens similares aos que o usuário gostou no passado\cite{gorakala2015building}. Para isto é necessário quantificar a similaridade entre itens, utilizando informações das características de um produto\cite{shapira2011recommender}. Considerando filmes como itens, se um usuário avaliou positivamente filmes do gênero de ação, então o sistema recomendará a este usuário filmes de ação.
 
-\subsection{Hybrid Recommender Systems}
+\subsection{Filtragem colaborativa}
+
+\subsection{Sistemas de recomendação híbridos}
 
 
 \chapter{Objetivos}
@@ -300,7 +334,7 @@ Este capítulo pode ser modificado de acordo com o interesse do aluno e do orien
 
 Separe em seções para organizar melhor seu texto. Use os comandos \verb|\section| e \verb|\subsection| para isso. 
 
-Sempre que preciso faça as referências usando o comando \verb|\cite|, como por exemplo, ``para mais informações sobre esse assunto veja o livro de Larson \cite{larson}.''
+Sempre que preciso faça as referências usando o comando \verb|\cite|, como por exemplo, ``para mais informações sobre esse assunto veja o livro de Larson.''
 
 Use os comandos a seguir para apresentar teoremas, definições, proposições, exemplos, etc. Dessa forma a numeração é feita de forma automática. 
 
