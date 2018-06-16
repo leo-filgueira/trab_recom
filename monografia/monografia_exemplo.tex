@@ -256,9 +256,9 @@ Aqui entram os agradecimentos.
 
 \chapter{Introdução} \label{cap:introducao}
 
-A partir do aumento de informação disponível com a popularização da Internet e com a possibilidade de armazenar essas informações surge o desafio de lidar com este grande conjunto de dados\cite{isinkaye2015recommendation}. Este aumento de informações desafia o site, como lojas on-line, que recebem todas as informações dos usuários que visitam o endereço, mas também pode se tornar um problema para o usuário que, diante da grande quantidade de produtos disponíveis para compra, pode levar muito tempo para achar o produto desejado\cite{mild2002collaborative}.
+A partir do aumento de informação disponível com a popularização da Internet e com a possibilidade de armazenar essas informações, surge o desafio de lidar com este grande conjunto de dados\cite{isinkaye2015recommendation}. Este aumento de informações desafia o site, como lojas on-line, que recebe todas as informações dos usuários que visitam o endereço, mas também pode se tornar um problema para o usuário que, diante da grande quantidade de produtos disponíveis para compra, pode levar muito tempo para achar o produto desejado\cite{mild2002collaborative}.
 
-Sistemas de recomendação são técnicas de \textit{machine learning} que filtram um grande conjunto de dados, tendo como base informações dos usuários\cite{takahashi2015estudo}. A partir dessas técnicas são previstas as notas que os usuários dariam a determinados itens, que podem ser dos mais variados tipos, e, para um indivíduo, recomenda-se o(s) item(ns) que obtiveram uma nota prevista maior\cite{shapira2011recommender}. Os sistemas de recomendação têm como objetivo recomendar itens que interessariam aos usuários\cite{melville2011recommender}, beneficiando o usuário e a loja, pois eles aumentam o desempenho da loja, fazendo-a vender uma quantidade maior de produtos, e também facilitam a procura do usuário fazendo-o achar produto(s) desejados em menos tempo\cite{isinkaye2015recommendation}. 
+Sistemas de recomendação são técnicas de \textit{machine learning} que filtram um grande conjunto de dados, tendo como base informações dos usuários\cite{takahashi2015estudo}. A partir dessas técnicas são previstas as notas que os usuários dariam a determinados itens, que podem ser dos mais variados tipos, e, para um indivíduo, recomenda-se o(s) item(ns) que obtiveram uma nota prevista maior\cite{shapira2011recommender}. Os sistemas de recomendação têm como objetivo recomendar itens que interessariam aos usuários\cite{melville2011recommender}, beneficiando o usuário e a loja, pois eles aumentam o desempenho da loja, fazendo-a vender uma quantidade maior de produtos, e também facilitam a procura do usuário fazendo-o achar produto(s) desejados em um menor tempo\cite{isinkaye2015recommendation}. 
 
 É facilmente perceptível no cotidiano o uso de sistemas de recomendação em ambientes on-line. Ao usar a \textit{Netflix}, sugestões para o usuário são oferecidas, baseadas nas atrações já assistidas e/ou avaliadas. Sites de compras como a \textit{Amazon} também oferecem sugestões de produtos ao usuário baseado em visitas à página dos produtos ou no comportamento de outros usuários que compraram um mesmo produto. Também em redes sociais, como no \textit{YouTube}, são sugeridos vídeos baseados no histórico do internauta e nas suas avaliações, ou então no \textit{Facebook}, que recomenda lista de pessoas que o usuário pode conhecer\cite{gorakala2015building}.
 
@@ -288,7 +288,7 @@ Os algoritmos de recomendação utilizam uma matriz, chamada de matriz de avalia
 Usuário 1   & $r_{(1, 1)}$ &             & $\cdots$  &             \\
 Usuário 2   &  & $r_{(2, 2)}$ & $\cdots$ & $r_{(2, m)}$ \\
 $\vdots$       &    $\vdots$  & $\vdots$       &  $\ddots$ & $\vdots$ \\
-Usuário $n$ & $r_{(n, 1)}$ &             & $\cdots$ & $r_{(n, m)}$ \\
+Usuário $n$ &  &             & $\cdots$ & $r_{(n, m)}$ \\
 \hline
 \end{tabular}
 \end{table}
@@ -301,12 +301,17 @@ Existem diferentes categorias de sistemas de recomendação, que podem ser class
 
 \subsection{Filtragem baseada em conteúdo}
 
-A ideia por trás dos sistemas nesta categoria é recomendar itens similares aos que o usuário gostou no passado\cite{gorakala2015building}. Para isto é necessário quantificar a similaridade entre itens, utilizando informações das características de um produto\cite{shapira2011recommender}. Considerando filmes como itens, se um usuário avaliou positivamente filmes do gênero de ação, então o sistema recomendará a este usuário filmes de ação.
+Os sistemas nesta categoria recomendam itens similares aos que o usuário gostou no passado\cite{gorakala2015building}. Para isto é necessário quantificar a similaridade entre itens, utilizando informações das características de um produto\cite{shapira2011recommender} e comparando o perfil do usuário, de acordo com suas preferências. Considerando filmes como itens, se um usuário avaliou positivamente filmes do gênero de ação, então o sistema recomendará a este usuário filmes de ação. Por outro lado, a filtragem baseada em conteúdo não leva em conta a similaridade de preferência entre os usuários, mas apenas o histórico do usuário e as características dos itens\cite{gorakala2015building}.
+
+Algumas das técnicas utilizadas neste tipo de filtragem são: TF/IDF (\textit{Term Frequency Inverse Document}), \textit{naive Bayes Classifier}, árvores de decisão ou redes neurais\cite{isinkaye2015recommendation}. 
 
 \subsection{Filtragem colaborativa}
 
+Na filtragem colaborativa são recomendados itens de acordo com as avaliações de todos os usuários\cite{melville2011recommender}. Para isto verifica-se a similaridade entre usuários (vizinhança), de acordo com suas avaliações passadas. Essa técnica é a mais utilizada para realizar recomendações\cite{shapira2011recommender}. Um exemplo simples seria: Se o usuário 1 comprou o item A, B e C, e o usuário 2 comprou os itens A e C, então recomenda-se o item B para o usuário 2.
+
 \subsection{Sistemas de recomendação híbridos}
 
+Os sistemas híbridos são uma combinação da filtragem baseada em conteúdo e filtragem colaborativa, buscando aproveitar as vantagens e eliminar as desvantagens das técnicas\cite{shapira2011recommender}. Cada uma das técnicas podem ser aplicadas de maneira separada, combinando os resultados, mas também pode ser construído um modelo com as duas abordagens unificadas\cite{takahashi2015estudo}.
 
 \chapter{Objetivos}
 
