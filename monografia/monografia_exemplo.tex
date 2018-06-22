@@ -280,7 +280,7 @@ Os algoritmos de recomendação utilizam uma matriz, chamada de matriz de avalia
 
 \begin{table}[!h]
 \centering
-\caption{Típica matriz de avaliações}
+\caption{Típica matriz $\bold{R}$ de avaliações}
 \label{rating_matrix}
 \begin{tabular}{c|c|c|c|c}
 \hline \\
@@ -321,7 +321,7 @@ Este trabalho tem os seguintes objetivos:
 
 \begin{itemize}
 
-\item{Apresentar técnicas de sistemas de recomendação, executar algumas destas técnicas e avaliá-las.}
+\item{Apresentar técnicas de sistemas de recomendação, executar algumas destas técnicas de filtragem colaborativa e avaliá-las.}
 
 \end{itemize}
 
@@ -330,10 +330,37 @@ Este trabalho tem os seguintes objetivos:
 
 \chapter{Materiais e Métodos}
 
-Apresente aqui os materiais e métodos usados na monografia. 
+\section{Conjunto de dados \textit{MovieLense}}
 
-Este capítulo pode ser modificado de acordo com o interesse do aluno e do orientador, dependendo do trabalho desenvolvido. Crie tantas seções quantas forem necessárias; a revisão bibliográfica pode também ser incluída aqui.
+Foi utilizado o \textit{dataset MovieLense}, disponível no pacote \textit{recommenderlab}, que apresenta dados coletados no site \textit{MovieLens}, entre 19 de setembro de 1997 e 22 de abril de 1998. O conjunto de dados apresenta as avaliações numéricas de 943 usuários (escala de 1 a 5) a 1664 filmes\cite{recommenderlab}.
 
+\section{Métodos}
+
+Haverão um conjunto de usuários $U = \{u_1, u_2, \ldots, u_n\}$ e um conjunto de itens $I = \{i_1, i_2, \ldots, i_m \}$, assim como as notas dos usuários aos itens, que serão armazenadas na matrix $\bold{R}_{n \times m}$ de avaliações\cite{hahsler2015recommenderlab}. Logo, cada linha da matriz $\bold{R}$ representa um usuário e cada coluna, um item. Os algoritmos buscarão preencher os valores faltantes desta matriz, com valores na mesma escala das avaliações presentes na matriz\cite{takahashi2015estudo}.
+
+\subsection{Filtragem colaborativa baseada no usuário (user-based)}
+
+Este algoritmo assume que usuários com preferência similar no passado terão preferências similares no futuro. Então os \textit{ratings} não observados serão previstos a partir das avaliações de uma vizinhança e usuários com gostos similares\cite{hahsler2015recommenderlab}. São então encontrados os $k$ vizinhos mais próximos de um usuário ou então todos os usuários que tenham pelo menos uma dada similaridade. O coeficiente de correlação de Pearson pode ser utilizado como medida de similaridade entre dois usuários $a$ e $u$, definida da seguinte maneira\cite{melville2011recommender}:
+
+\begin{equation}
+w_{a, u} = \frac{\sum_{i \in I}{(r_{a, i} - \overline{r}_a ) ( r_{u, i} - \overline{r}_u )}}{\sqrt{\sum_{i \in I}{(r_{a, i} - \overline{r}_a )^2} \sum_{i \in I}{(r_{u, i} - \overline{r}_u )^2}}}
+\end{equation}
+
+Sendo $I$ o conjunto de itens avaliados pelos dois usuários, $r_{u, i}$ é o rating dado pelo usuário $u$ ao item $i$ e $\overline{r}_u$ é o rating médio do usuário $u$ a todos os itens por ele avaliados. 
+
+Uma outra maneira de calcular a similaridade entre dois usuários é considerar os ratings de dois usuários como vetores num espaço $m$-dimensional, para, assim, encontrar o cosseno do ângulo entre estes vetores\cite{melville2011recommender}:
+
+\begin{equation}
+w_{a, u} = \cos({\vec{r}_a, \vec{r}_u}) = \frac{\vec{r}_a \boldsymbol{\cdot} \vec{r}_u}{\lVert \vec{r}_a\rVert \times \lVert \vec{r}_u\rVert} = \frac{\sum_{i=1}^{m}{r_{a, i} r_{u, i}}}{\sqrt{\sum_{i=1}^{m}{r^2_{a, i}} \sum{_{i=1}^{m}{r^2_{u, i}}}}}
+\end{equation}
+
+Por fim, a predição da nota dada ao item $i$ pelo usuário $a$ é dada por:
+
+\begin{equation}
+p_{a, i} = \overline{r}_a + \frac{\sum_{u \in k}{(r_{u, i} - \overline{r}_u) \times w_{a, u}}}{\sum_{u \in k}{w_{a, u}}}
+\end{equation}
+
+Sendo $k$ a vizinhança do usuário $a$.
 
 \section{Algumas Dicas}
 
