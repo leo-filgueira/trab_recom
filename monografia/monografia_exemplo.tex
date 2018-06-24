@@ -196,7 +196,7 @@ Instituicao do 1o membro da banca\\
 
 \vspace{2cm}
 \noindent\rule{8cm}{0.4pt}\\
-{\bf Profa. Me. Nome do 2o membro da banca}\\
+{\bf Prof. Dr. Nome do 2o membro da banca}\\
 Instituicao do 2o membro da banca\\
 
 \end{espacosimples}
@@ -221,7 +221,7 @@ Instituicao do 2o membro da banca\\
 %escreva aqui o resumo do seu trabalho%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{resumo}
-Aqui entra o resumo da monografia.
+% Aqui entra o resumo da monografia.
 
 \vspace{1cm}
 \noindent Palavras-chaves: 
@@ -236,7 +236,7 @@ Aqui entra o resumo da monografia.
 %escreva aqui a sua dedicatória% (opcional)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter*{Dedicatória}
-Aqui entra a sua dedicatória. 
+% Aqui entra a sua dedicatória. 
 
 
 
@@ -244,7 +244,7 @@ Aqui entra a sua dedicatória.
 %escreva aqui seus agradecimentos% (opcional)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter*{Agradecimentos}
-Aqui entram os agradecimentos. 
+% Aqui entram os agradecimentos. 
 
 
 
@@ -280,7 +280,7 @@ Os algoritmos de recomendação utilizam uma matriz, chamada de matriz de avalia
 
 \begin{table}[!h]
 \centering
-\caption{Típica matriz $\bold{R}$ de avaliações}
+\caption{Típica matriz $\mathbf{R}$ de avaliações}
 \label{rating_matrix}
 \begin{tabular}{c|c|c|c|c}
 \hline \\
@@ -301,7 +301,7 @@ Existem diferentes categorias de sistemas de recomendação, que podem ser class
 
 \subsection{Filtragem baseada em conteúdo}
 
-Os sistemas nesta categoria recomendam itens similares aos que o usuário gostou no passado\cite{gorakala2015building}. Para isto é necessário quantificar a similaridade entre itens, utilizando informações das características de um produto\cite{shapira2011recommender} e comparando o perfil do usuário, de acordo com suas preferências. Considerando filmes como itens, se um usuário avaliou positivamente filmes do gênero de ação, então o sistema recomendará a este usuário filmes de ação. Por outro lado, a filtragem baseada em conteúdo não leva em conta a similaridade de preferência entre os usuários, mas apenas o histórico do usuário e as características dos itens\cite{gorakala2015building}.
+Os sistemas nesta categoria recomendam itens similares aos que o usuário gostou no passado\cite{gorakala2015building}. Para isto é necessário utilizar informações das características de um produto\cite{shapira2011recommender} e comparar com o perfil do usuário, de acordo com itens já conhecidos pelo usuário. Considerando filmes como itens, se um usuário avaliou positivamente filmes do gênero de ação, então o sistema recomendará a este usuário filmes de ação. Por outro lado, a filtragem baseada em conteúdo não leva em conta a similaridade de preferência entre os usuários, mas apenas o histórico do usuário e as características dos itens\cite{gorakala2015building}.
 
 Algumas das técnicas utilizadas neste tipo de filtragem são: TF/IDF (\textit{Term Frequency Inverse Document}), \textit{naive Bayes Classifier}, árvores de decisão ou redes neurais\cite{isinkaye2015recommendation}. 
 
@@ -334,9 +334,33 @@ Este trabalho tem os seguintes objetivos:
 
 Foi utilizado o \textit{dataset MovieLense}, disponível no pacote \textit{recommenderlab}, que apresenta dados coletados no site \textit{MovieLens}, entre 19 de setembro de 1997 e 22 de abril de 1998. O conjunto de dados apresenta as avaliações numéricas de 943 usuários (escala de 1 a 5) a 1664 filmes\cite{recommenderlab}.
 
-\section{Métodos}
+\section{Metodologia}
 
 Haverão um conjunto de usuários $U = \{u_1, u_2, \ldots, u_n\}$ e um conjunto de itens $I = \{i_1, i_2, \ldots, i_m \}$, assim como as notas dos usuários aos itens, que serão armazenadas na matrix $\bold{R}_{n \times m}$ de avaliações\cite{hahsler2015recommenderlab}. Logo, cada linha da matriz $\bold{R}$ representa um usuário e cada coluna, um item. Os algoritmos buscarão preencher os valores faltantes desta matriz, com valores na mesma escala das avaliações presentes na matriz\cite{takahashi2015estudo}.
+
+\subsection{Filtragem colaborativa baseada no item (item-based)}
+
+Este algoritmo busca recomendar itens similares aos bem avaliados pelo usuário. Desta forma será verificado, para cada par de itens, a sua similaridade, e a partir desta medida é prevista a avaliação do usuário para o item. A similaridade entre dois itens $i$ e $j$ pode ser medida pelo coeficiente de correlação de Pearson, definido da seguinte maneira\cite{melville2011recommender}:
+
+\begin{equation}
+w_{i, j} = \frac{\sum_{u \in U}{(r_{u, i} - \overline{r}_i ) ( r_{u, j} - \overline{r}_j )}}{\sqrt{\sum_{u \in U}{(r_{u, i} - \overline{r}_i )^2} \sum_{u \in U}{(r_{u, j} - \overline{r}_j )^2}}}
+\end{equation}
+
+Sendo $U$ o conjunto de usuários que avaliaram os dois itens, $i$ e $j$,$r_{u, i}$ o rating dado pelo usuário $u$ ao item $i$ e $\overline{r}_i$ o rating médio recebido pelo item $i$ dado por todos os usuários que o avaliaram.
+
+Alternativamente, a similaridade entre os itens $i$ e $j$ pode ser medida considerando os ratings recebidos pelos dois itens como vetores e calcular o cosseno entre estes vetores\cite{sarwar2001item}:
+
+\begin{equation}
+w_{i, j} = \cos({\vec{r}_i, \vec{r}_j}) = \frac{\vec{r}_i \boldsymbol{\cdot} \vec{r}_j}{\lVert \vec{r}_i\rVert \times \lVert \vec{r}_i\rVert} = \frac{\sum_{u=1}^{n}{r_{u, i} r_{u, j}}}{\sqrt{\sum_{u=1}^{n}{r^2_{u, i}} \sum{_{u=1}^{n}{r^2_{u, j}}}}}
+\end{equation}
+
+A seguir, o *rating* do item $i$ pelo usuário $a$ pode ser previsto da seguinte forma\cite{melville2011recommender}:
+
+\begin{equation}
+p_{a, i} = \frac{\sum_{j \in k}{r_{a, i} - w_{i, j}}}{\sum_{j \in k}{\left|w_{i, j}\right|}}
+\end{equation}
+
+Sendo $k$ o conjunto de itens avaliados pelo usuário $a$ que são mais similares ao item $i$.
 
 \subsection{Filtragem colaborativa baseada no usuário (user-based)}
 
@@ -357,84 +381,83 @@ w_{a, u} = \cos({\vec{r}_a, \vec{r}_u}) = \frac{\vec{r}_a \boldsymbol{\cdot} \ve
 Por fim, a predição da nota dada ao item $i$ pelo usuário $a$ é dada por:
 
 \begin{equation}
-p_{a, i} = \overline{r}_a + \frac{\sum_{u \in k}{(r_{u, i} - \overline{r}_u) \times w_{a, u}}}{\sum_{u \in k}{w_{a, u}}}
+p_{a, i} = \overline{r}_a + \frac{\sum_{u \in k}{(r_{u, i} - \overline{r}_u) w_{a, u}}}{\sum_{u \in k}{\left|w_{a, u}\right|}}
 \end{equation}
 
 Sendo $k$ a vizinhança do usuário $a$.
 
-\section{Algumas Dicas}
-
-Separe em seções para organizar melhor seu texto. Use os comandos \verb|\section| e \verb|\subsection| para isso. 
-
-Sempre que preciso faça as referências usando o comando \verb|\cite|, como por exemplo, ``para mais informações sobre esse assunto veja o livro de Larson.''
-
-Use os comandos a seguir para apresentar teoremas, definições, proposições, exemplos, etc. Dessa forma a numeração é feita de forma automática. 
-
-{\defi
-Abra e feche as chaves e dentro delas coloque o comando \verb|\defi| seguido da definição. 
-}
-
-{\thm
-Abra e feche as chaves e dentro delas coloque o comando \verb|\thm| seguido do enunciado do teorema. 
-}
-
-{\prop
-Abra e feche as chaves e dentro delas coloque o comando \verb|\prop| seguido do enunciado da proposição.
-}
+% \section{Alternating Least Squares (ALS)}
+% Colocar ou não colocar? Se sim, referências?
 
 
-{\exe
-Abra e feche as chaves e dentro delas coloque o comando \verb|\exe| seguido do exemplo.
-}
-
-
+% \section{Algumas Dicas}
+% 
+% Separe em seções para organizar melhor seu texto. Use os comandos \verb|\section| e \verb|\subsection| para isso. 
+% 
+% Sempre que preciso faça as referências usando o comando \verb|\cite|, como por exemplo, ``para mais informações sobre esse assunto veja o livro de Larson.''
+% 
+% Use os comandos a seguir para apresentar teoremas, definições, proposições, exemplos, etc. Dessa forma a numeração é feita de forma automática. 
+% 
+% {\defi
+% Abra e feche as chaves e dentro delas coloque o comando \verb|\defi| seguido da definição. 
+% }
+% 
+% {\thm
+% Abra e feche as chaves e dentro delas coloque o comando \verb|\thm| seguido do enunciado do teorema. 
+% }
+% 
+% {\prop
+% Abra e feche as chaves e dentro delas coloque o comando \verb|\prop| seguido do enunciado da proposição.
+% }
+% 
+% 
+% {\exe
+% Abra e feche as chaves e dentro delas coloque o comando \verb|\exe| seguido do exemplo.
+% }
 
 
 \chapter{Análise dos Resultados}
 
 
-Neste capítulo deve-se apresentar os resultados, podendo comentá-los e discuti-los, comparando-os com resultados da bibliografia já existente. Use seções, se apropriado.
-
-Para que as tabelas e figuras sejam incluídas corretamente nas listas de tabelas e figuras use os comandos 
-\verb|\begin{table}...\end{table}| e \verb|\begin{figure}...\end{figure}|. Veja como nos exemplos a seguir.
-
-Primeiro o exemplo de uma tabela. 
-
-\begin{table}[h!]
-\centering
-\caption{Tabela exemplo} \label{fig:exemplo}
-\begin{tabular}{cc}
-\hline
-Ano & Produção (1.000t)\\
-\hline
-1996 & 2.536\\
-1997 & 2.666\\
-1998 & 3.750\\
-1999 & 2.007\\
-2000 & 2.080\\
-\hline
-\end{tabular}
-\end{table}
-
-Agora veja como incluir figuras.
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.5\linewidth]{logoUFF.pdf}
-\caption{Figura exemplo} \label{tab:exemplo}
-\end{figure}
-
-Use o comando \verb|ref| para fazer referências das tabelas e figuras ao longo do texto. Por exemplo, podemos nos referencias à Figura \ref{fig:exemplo} ou à Tabela \ref{tab:exemplo}. 
-
-O mesmo comando \verb|ref| pode ser usado para fazer referência à capítulos, seções, equações, etc. Basta que tenha sido definido um \verb|label| para cada um deles. Por exemplo, se quisermos fazer referência ao número do capítulo Introdução basta digitar \verb|\ref{cap:introducao}|, veja como: ``... como comentado no Capítulo \ref{cap:introducao}, na introdução deste trabalho''. 
-
-
-
+% Neste capítulo deve-se apresentar os resultados, podendo comentá-los e discuti-los, comparando-os com resultados da bibliografia já existente. Use seções, se apropriado.
+% 
+% Para que as tabelas e figuras sejam incluídas corretamente nas listas de tabelas e figuras use os comandos 
+% \verb|\begin{table}...\end{table}| e \verb|\begin{figure}...\end{figure}|. Veja como nos exemplos a seguir.
+% 
+% Primeiro o exemplo de uma tabela. 
+% 
+% \begin{table}[h!]
+% \centering
+% \caption{Tabela exemplo} \label{fig:exemplo}
+% \begin{tabular}{cc}
+% \hline
+% Ano & Produção (1.000t)\\
+% \hline
+% 1996 & 2.536\\
+% 1997 & 2.666\\
+% 1998 & 3.750\\
+% 1999 & 2.007\\
+% 2000 & 2.080\\
+% \hline
+% \end{tabular}
+% \end{table}
+% 
+% Agora veja como incluir figuras.
+% 
+% \begin{figure}[h!]
+% \centering
+% \includegraphics[width=0.5\linewidth]{logoUFF.pdf}
+% \caption{Figura exemplo} \label{tab:exemplo}
+% \end{figure}
+% 
+% Use o comando \verb|ref| para fazer referências das tabelas e figuras ao longo do texto. Por exemplo, podemos nos referencias à Figura \ref{fig:exemplo} ou à Tabela \ref{tab:exemplo}. 
+% 
+% O mesmo comando \verb|ref| pode ser usado para fazer referência à capítulos, seções, equações, etc. Basta que tenha sido definido um \verb|label| para cada um deles. Por exemplo, se quisermos fazer referência ao número do capítulo Introdução basta digitar \verb|\ref{cap:introducao}|, veja como: ``... como comentado no Capítulo \ref{cap:introducao}, na introdução deste trabalho''. 
 
 \chapter{Conclusão}
 
-Para finalizar seu trabalho faça o capítulo de conclusão. Neste capítulo deve ser feito um breve resumo de tudo que foi feito e as principais conclusões obtidas.
-
+% Para finalizar seu trabalho faça o capítulo de conclusão. Neste capítulo deve ser feito um breve resumo de tudo que foi feito e as principais conclusões obtidas.
+% 
 
 
 %A bibliografia é feita automaticamente com o comando abaixo
@@ -450,13 +473,13 @@ Para finalizar seu trabalho faça o capítulo de conclusão. Neste capítulo dev
 
 \chapter{Título do primeiro anexo}
 
-Caso você ache interessante, adicione anexos ao trabalho. Estes devem vir depois das referências bibliográficas. 
+% Caso você ache interessante, adicione anexos ao trabalho. Estes devem vir depois das referências bibliográficas. 
 
 
 
 \chapter{Título do segundo anexo}
 
-Dessa forma você pode incluir quantos anexos quiser. 
+% Dessa forma você pode incluir quantos anexos quiser. 
 
 
 
