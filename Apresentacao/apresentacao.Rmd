@@ -94,9 +94,9 @@ w_{i, j} = \frac{\sum_{u \in U}{(r_{u, i} - \overline{r}_i ) ( r_{u, j} - \overl
 \end{equation}
   
 
-    - $U$: conjunto de usuários que avaliaram os dois itens.
-    - $r_{u, i}$ o rating dado pelo usuário $u$ ao item $i$.
-    - $\overline{r}_i$ o rating médio recebido pelo item $i$ dado por todos os usuários que o avaliaram.
+- $U$: conjunto de usuários que avaliaram os dois itens.
+- $r_{u, i}$ o rating dado pelo usuário $u$ ao item $i$.
+- $\overline{r}_i$ o rating médio recebido pelo item $i$ dado por todos os usuários que o avaliaram.
 
 ## Estado da arte
 
@@ -116,9 +116,11 @@ p_{a, i} = \frac{\sum_{j \in k}{r_{a, i} - w_{i, j}}}{\sum_{j \in k}{\left|w_{i,
 
 - Onde $k$ é a vizinhança do item $i$.
 
-## Filtragem colaborativa baseada no usuário
+## Estado da arte
 
-- Similaridade entre itens $a$ e $u$.
+- Filtragem colaborativa baseada no usuário:
+
+- Cálculo da similaridade entre itens $a$ e $u$.
 - Coeficiente de correlação de Pearson:
 
 \begin{equation}
@@ -131,8 +133,9 @@ w_{a, u} = \frac{\sum_{i \in I}{(r_{a, i} - \overline{r}_a ) ( r_{u, i} - \overl
 w_{a, u} = \cos({\vec{r}_a, \vec{r}_u}) = \frac{\vec{r}_a \boldsymbol{\cdot} \vec{r}_u}{\lVert \vec{r}_a\rVert \times \lVert \vec{r}_u\rVert} = \frac{\sum_{i=1}^{m}{r_{a, i} r_{u, i}}}{\sqrt{\sum_{i=1}^{m}{r^2_{a, i}} \sum{_{i=1}^{m}{r^2_{u, i}}}}}
 \end{equation}
 
-## Filtragem colaborativa baseada no usuário
+## Estado da arte
 
+- Filtragem colaborativa baseada no usuário:
 - Cálculo do valor previsto da avaliação:
 
 \begin{equation}
@@ -141,12 +144,17 @@ p_{a, i} = \overline{r}_a + \frac{\sum_{u \in k}{(r_{u, i} - \overline{r}_u) w_{
 
 - Onde $k$ é a vizinhança do usuário $a$.
 
-## Conclusão e planos para Projeto Final II
+## Plano de desenvolvimento da pesquisa
+
+- Dividir a base de dados em base de treino e base de teste, para verificar a precisão das previsões.
+- Utilizar clusters e aplicar algoritmos para os clusters, para comparar com resultado do algoritmo com a base completa.
+- Verificar os pacotes do R que implementam os algoritmos de sistemas de recomendação.
+
+## Conclusões esperadas
 
 - Benefícios trazidos para lojas e usuários.
-- Alguns pacotes do R.
-- Incluir filtragem colaborativa *model based*, em especial ALS.
-- Divisão em clusters antes de rodar algoritmos e comparar resultados.
+- Incluir filtragem colaborativa *model based*, em especial ALS (algoritmo que tem bom desempenho).
+- Divisão em clusters apresentar resultados mais precisos.
 
 ## Referências:
 
