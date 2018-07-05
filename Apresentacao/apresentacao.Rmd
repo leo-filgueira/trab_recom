@@ -7,21 +7,13 @@ output:
     theme: "Malmoe"
 ---
 
-## Motivação
-
-- Lojas *on-line*.
-- Variedade de informações ofertadas.
-- Dados coletados.
-- Aproveitamento dos dados.
-- Aumento nas vendas das lojas.
-- Aproveitamento do tempo do cliente.
-
 ## Introdução
 
-- Utilizado desde década de $90$.
-- Muito usado em ambientes *on-line*.
-- Sugerir itens para o usuário.
-- Calcular avaliação prevista.
+- Variedade de informações ofertadas e coletadas no ambiente digital, principalmente.
+- Desafio de lidar dos dados coletados.
+- Técnicas de filtro dos dados para sugerir itens para usuários.
+- Proposta na década de $90$ e já utilizada pelo Yahoo no período.
+- Sugere produtos que acredita-se ser do desejo do usuário.
 
 ## Avaliações
 
@@ -133,7 +125,6 @@ p_{a, i} = \overline{r}_a + \frac{\sum_{u \in k}{(r_{u, i} - \overline{r}_u) w_{
 
 ## Conclusão e planos para Projeto Final II
 
-- Técnicas muito utilizadas.
 - Benefícios trazidos para lojas e usuários.
 - Alguns pacotes do R.
 - Incluir filtragem colaborativa *model based*, em especial ALS.
