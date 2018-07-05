@@ -156,7 +156,7 @@ p_{a, i} = \overline{r}_a + \frac{\sum_{u \in k}{(r_{u, i} - \overline{r}_u) w_{
 - Incluir filtragem colaborativa *model based*, em especial ALS (algoritmo que tem bom desempenho).
 - Divisão em clusters apresentar resultados mais precisos.
 
-## Referências:
+## Referências
 
 - ISINKAYE, F.; FOLAJIMI, Y.; OJOKOH, B. Recommendation systems: Principles,
 methods and evaluation. Egyptian Informatics Journal, Elsevier, v. 16, n. 3, p. 261–273, 2015.
