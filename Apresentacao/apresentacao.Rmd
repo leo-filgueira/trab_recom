@@ -11,6 +11,7 @@ output:
 
 - Variedade de informações ofertadas e coletadas no ambiente digital, principalmente.
 - Desafio de lidar dos dados coletados.
+- Utilização das avaliações dos usuários para os itens.
 - Técnicas de filtro dos dados para sugerir itens para usuários.
 - Proposta na década de $90$ e já utilizada pelo Yahoo no período.
 - Sugestão itens que acredita-se ser do desejo do usuário.
@@ -23,16 +24,9 @@ output:
 - Dividir dados para verificar previsão.
 - Calcular erro da previsão dos algoritmos.
 
-## Avaliações
+## Estado da arte
 
-- Avaliações em diferentes formatos:
-    - Avaliações numéricas;
-    - Avaliações qualitativas;
-    - Avaliações binárias;
-    - Avaliação unária.
-- Representadas em matriz.
-    
-## Matriz de avaliações   
+As avaliações são disponíveis da seguinte maneira:
 
 \begin{table}[!h]
 \centering
@@ -48,55 +42,71 @@ Usuário $n$ &  &             & $\cdots$ & $r_{(n, m)}$ \\
 \end{tabular}
 \end{table}
 
+Onde $r_{u, i}$ é a avaliação do usuário $u$ para o item $i$.
+
 - Matriz esparsa.
 - Vários dados faltantes.
 
-## Algoritmos
+## Estado da arte
 
-- Filtragem baseada em conteúdo.
-- Filtragem colaborativa.
-- Sistemas híbridos.
+- Formatos de avaliação:
+    - Avaliações numéricas;
+    - Avaliações qualitativas;
+    - Avaliações binárias;
+    - Avaliação unária.
 
-## Filtragem baseada em conteúdo
+- Utilizar avaliações observadas para prever as faltantes.
 
-- Uso do histórico do usuário.
-- Associação entre itens.
-- Buscar itens mais associados aos do histórico.
-- Técnicas de \textit{text mining} para associação.
-- Não considera comportamento de outros usuários.
 
-## Filtragem colaborativa
+## Estado da arte
 
-- Uso das informações de outros usuários.
-- Agrupamento de itens/usuários.
+Tipos de sistemas de recomendação:
+
+- Filtragem baseada em conteúdo:
+    - Uso do histórico do usuário;
+    - Associação entre itens;
+    - Buscar itens mais associados aos do histórico;
+    - Técnicas de \textit{text mining} para associação;
+    - Não considera comportamento de outros usuários;
+
+## Estado da arte
+
+Tipos de sistemas de recomendação:
+
+- Filtragem colaborativa
+
+    - Uso das informações de outros usuários.
+    - Agrupamento de itens/usuários.
 
 - Tipos:
     - Baseada no item,
     - Baseada no usuário.
     
-## Filtragem colaborativa baseada no item
+## Estado da arte
 
-- Similaridade entre itens $i$ e $j$:
-- Coeficiente de correlação de Pearson:
+- Filtragem colaborativa baseada no item:
+
+    - Cálculo da similaridade entre itens $i$ e $j$:
+    - Coeficiente de correlação de Pearson:
 
 \begin{equation}
 w_{i, j} = \frac{\sum_{u \in U}{(r_{u, i} - \overline{r}_i ) ( r_{u, j} - \overline{r}_j )}}{\sqrt{\sum_{u \in U}{(r_{u, i} - \overline{r}_i )^2} \sum_{u \in U}{(r_{u, j} - \overline{r}_j )^2}}}
 \end{equation}
   
 
-- $U$: conjunto de usuários que avaliaram os dois itens.
-- $r_{u, i}$ o rating dado pelo usuário $u$ ao item $i$.
-- $\overline{r}_i$ o rating médio recebido pelo item $i$ dado por todos os usuários que o avaliaram.
+    - $U$: conjunto de usuários que avaliaram os dois itens.
+    - $r_{u, i}$ o rating dado pelo usuário $u$ ao item $i$.
+    - $\overline{r}_i$ o rating médio recebido pelo item $i$ dado por todos os usuários que o avaliaram.
 
-## Filtragem colaborativa baseada no item
+## Estado da arte
+
+- Filtragem colaborativa baseada no item:
 
 - Cosseno entre vetores de avaliações:
 
 \begin{equation}
 w_{i, j} = \cos({\vec{r}_i, \vec{r}_j}) = \frac{\vec{r}_i \boldsymbol{\cdot} \vec{r}_j}{\lVert \vec{r}_i\rVert \times \lVert \vec{r}_i\rVert} = \frac{\sum_{u=1}^{n}{r_{u, i} r_{u, j}}}{\sqrt{\sum_{u=1}^{n}{r^2_{u, i}} \sum{_{u=1}^{n}{r^2_{u, j}}}}}
 \end{equation}
-
-## Filtragem colaborativa baseada no item
 
 - \textit{rating} previsto:
 
