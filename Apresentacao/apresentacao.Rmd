@@ -1,0 +1,137 @@
+---
+title: "Sistemas de recomendação utilizando o software R"
+author: "Leonardo Filgueira"
+date: "06 de julho de 2018"
+output: 
+  beamer_presentation:
+    theme: "Malmoe"
+---
+
+## Motivação
+
+- Lojas *on-line*.
+- Variedade de informações ofertadas.
+- Dados coletados.
+- Aproveitamento dos dados.
+- Aumento nas vendas das lojas.
+- Aproveitamento do tempo do cliente.
+
+## Introdução
+
+- Utilizado desde década de $90$.
+- Muito usado em ambientes *on-line*.
+- Sugerir itens para o usuário.
+- Calcular avaliação prevista.
+
+## Avaliações
+
+- Avaliações em diferentes formatos:
+    - Avaliações numéricas;
+    - Avaliações qualitativas;
+    - Avaliações binárias;
+    - Avaliação unária.
+- Representadas em matriz.
+    
+## Matriz de avaliações   
+
+\begin{table}[!h]
+\centering
+\label{rating_matrix}
+\begin{tabular}{c|c|c|c|c}
+\hline \\
+            & Item 1      & Item 2      & $\cdots$ & Item m      \\
+Usuário 1   & $r_{(1, 1)}$ &             & $\cdots$  &             \\
+Usuário 2   &  & $r_{(2, 2)}$ & $\cdots$ & $r_{(2, m)}$ \\
+$\vdots$       &    $\vdots$  & $\vdots$       &  $\ddots$ & $\vdots$ \\
+Usuário $n$ &  &             & $\cdots$ & $r_{(n, m)}$ \\
+\hline
+\end{tabular}
+\end{table}
+
+- Matriz esparsa.
+- Vários dados faltantes.
+
+## Algoritmos
+
+- Filtragem baseada em conteúdo.
+- Filtragem colaborativa.
+- Sistemas híbridos.
+
+## Filtragem baseada em conteúdo
+
+- Uso do histórico do usuário.
+- Associação entre itens.
+- Buscar itens mais associados aos do histórico.
+- Técnicas de \textit{text mining} para associação.
+- Não considera comportamento de outros usuários.
+
+## Filtragem colaborativa
+
+- Uso das informações de outros usuários.
+- Agrupamento de itens/usuários.
+
+- Tipos:
+    - Baseada no item,
+    - Baseada no usuário.
+    
+## Filtragem colaborativa baseada no item
+
+- Similaridade entre itens $i$ e $j$:
+- Coeficiente de correlação de Pearson:
+
+\begin{equation}
+w_{i, j} = \frac{\sum_{u \in U}{(r_{u, i} - \overline{r}_i ) ( r_{u, j} - \overline{r}_j )}}{\sqrt{\sum_{u \in U}{(r_{u, i} - \overline{r}_i )^2} \sum_{u \in U}{(r_{u, j} - \overline{r}_j )^2}}}
+\end{equation}
+  
+
+- $U$: conjunto de usuários que avaliaram os dois itens.
+- $r_{u, i}$ o rating dado pelo usuário $u$ ao item $i$.
+- $\overline{r}_i$ o rating médio recebido pelo item $i$ dado por todos os usuários que o avaliaram.
+
+## Filtragem colaborativa baseada no item
+
+- Cosseno entre vetores de avaliações:
+
+\begin{equation}
+w_{i, j} = \cos({\vec{r}_i, \vec{r}_j}) = \frac{\vec{r}_i \boldsymbol{\cdot} \vec{r}_j}{\lVert \vec{r}_i\rVert \times \lVert \vec{r}_i\rVert} = \frac{\sum_{u=1}^{n}{r_{u, i} r_{u, j}}}{\sqrt{\sum_{u=1}^{n}{r^2_{u, i}} \sum{_{u=1}^{n}{r^2_{u, j}}}}}
+\end{equation}
+
+## Filtragem colaborativa baseada no item
+
+- \textit{rating} previsto:
+
+\begin{equation}
+p_{a, i} = \frac{\sum_{j \in k}{r_{a, i} - w_{i, j}}}{\sum_{j \in k}{\left|w_{i, j}\right|}}
+\end{equation}
+
+- Onde $k$ é a vizinhança do item $i$.
+
+## Filtragem colaborativa baseada no usuário
+
+- Similaridade entre itens $a$ e $u$.
+- Coeficiente de correlação de Pearson:
+
+\begin{equation}
+w_{a, u} = \frac{\sum_{i \in I}{(r_{a, i} - \overline{r}_a ) ( r_{u, i} - \overline{r}_u )}}{\sqrt{\sum_{i \in I}{(r_{a, i} - \overline{r}_a )^2} \sum_{i \in I}{(r_{u, i} - \overline{r}_u )^2}}}
+\end{equation}
+
+- Cosseno entre os vetores de avaliações:
+
+\begin{equation}
+w_{a, u} = \cos({\vec{r}_a, \vec{r}_u}) = \frac{\vec{r}_a \boldsymbol{\cdot} \vec{r}_u}{\lVert \vec{r}_a\rVert \times \lVert \vec{r}_u\rVert} = \frac{\sum_{i=1}^{m}{r_{a, i} r_{u, i}}}{\sqrt{\sum_{i=1}^{m}{r^2_{a, i}} \sum{_{i=1}^{m}{r^2_{u, i}}}}}
+\end{equation}
+
+## Filtragem colaborativa baseada no usuário
+
+- Cálculo do valor previsto da avaliação:
+
+\begin{equation}
+p_{a, i} = \overline{r}_a + \frac{\sum_{u \in k}{(r_{u, i} - \overline{r}_u) w_{a, u}}}{\sum_{u \in k}{\left|w_{a, u}\right|}}
+\end{equation}
+
+- Onde $k$ é a vizinhança do usuário $a$.
+
+## Planos para Projeto Final II
+
+- Incluir filtragem colaborativa *model based*, em especial ALS.
+- Divisão em clusters antes de rodar algoritmos e comparar resultados.
