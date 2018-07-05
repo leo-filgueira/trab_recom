@@ -13,7 +13,15 @@ output:
 - Desafio de lidar dos dados coletados.
 - Técnicas de filtro dos dados para sugerir itens para usuários.
 - Proposta na década de $90$ e já utilizada pelo Yahoo no período.
-- Sugere produtos que acredita-se ser do desejo do usuário.
+- Sugestão itens que acredita-se ser do desejo do usuário.
+- Facilitação da busca do usuário pelo item.
+- Fidelização do usuário.
+
+## Objetivos
+
+- Aplicar algoritmos de sistemas de recomendação no software R para base de avaliações de filmes.
+- Dividir dados para verificar previsão.
+- Calcular erro da previsão dos algoritmos.
 
 ## Avaliações
 
