@@ -9,7 +9,7 @@
 \usepackage{graphicx}
 \usepackage{subfigure}
 \usepackage{fancyhdr}
-
+\usepackage{siunitx}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -61,13 +61,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %colocar aqui o nome do co-orientador, caso exista%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\coorientador{Rodrigo Ribeiro}
+\coorientador{Rodrigo Otávio de Araújo Ribeiro}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %colocar aqui a data da apresentacao da monografia%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\data{30 de fevereiro de 2013}
+\data{}
 
 
 
@@ -142,7 +142,7 @@
 
 %\begin{left}
 \fbox{
-\includegraphics[scale=1]{ficha_catalografica.pdf}
+% \includegraphics[scale=1]{ficha_catalografica.pdf}
 }
 %\end{center}
 \vspace{1cm}
@@ -190,8 +190,8 @@ Departamento de Estatística -- UFF\\
 
 \vspace{2cm}
 \noindent\rule{8cm}{0.4pt}\\
-{\bf Prof. Dr. Nome do 1o membro da banca}\\
-Instituicao do 1o membro da banca\\
+{\bf Prof. Dr. Steven Dutt Ross}\\
+UNIRIO\\
 
 
 \vspace{2cm}
@@ -220,32 +220,32 @@ Instituicao do 2o membro da banca\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %escreva aqui o resumo do seu trabalho%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{resumo}
-% Aqui entra o resumo da monografia.
-
-\vspace{1cm}
-\noindent Palavras-chaves: 
-%Aqui entram as palavras chaves.
-
-
-\end{resumo}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%escreva aqui a sua dedicatória% (opcional)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter*{Dedicatória}
-% Aqui entra a sua dedicatória. 
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%escreva aqui seus agradecimentos% (opcional)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter*{Agradecimentos}
-% Aqui entram os agradecimentos. 
-
+% \begin{resumo}
+% % Aqui entra o resumo da monografia.
+% 
+% \vspace{1cm}
+% \noindent Palavras-chaves: 
+% %Aqui entram as palavras chaves.
+% 
+% 
+% \end{resumo}
+% 
+% 
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %escreva aqui a sua dedicatória% (opcional)
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \chapter*{Dedicatória}
+% % Aqui entra a sua dedicatória. 
+% 
+% 
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %escreva aqui seus agradecimentos% (opcional)
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \chapter*{Agradecimentos}
+% % Aqui entram os agradecimentos. 
+% 
 
 
 \tableofcontents{}
@@ -259,6 +259,8 @@ Instituicao do 2o membro da banca\\
 A partir do aumento de informação disponível com a popularização da Internet e com a possibilidade de armazenar essas informações, surge o desafio de lidar com este grande conjunto de dados\cite{isinkaye2015recommendation}. Este aumento de informações desafia o site, como lojas on-line, que recebe todas as informações dos usuários que visitam o endereço, mas também pode se tornar um problema para o usuário que, diante da grande quantidade de produtos disponíveis para compra, pode levar muito tempo para achar o produto desejado\cite{mild2002collaborative}.
 
 Sistemas de recomendação são técnicas de \textit{machine learning} que filtram um grande conjunto de dados, tendo como base informações dos usuários\cite{takahashi2015estudo}. A partir dessas técnicas são previstas as notas que os usuários dariam a determinados itens, que podem ser dos mais variados tipos, e, para um indivíduo, recomenda-se o(s) item(ns) que obtiveram uma nota prevista maior\cite{shapira2011recommender}. Os sistemas de recomendação têm como objetivo recomendar itens que interessariam aos usuários\cite{melville2011recommender}, beneficiando o usuário e a loja, pois eles aumentam o desempenho da loja, fazendo-a vender uma quantidade maior de produtos, e também facilitam a procura do usuário fazendo-o achar produto(s) desejados em um menor tempo\cite{isinkaye2015recommendation}. 
+
+O primeiro sistema de recomendação foi criado na década de $90$ e tinha como nome ``filtragem colaborativa'', pois o sistema funcionava com base na colaboração entre os grupos de pessoas interessados. Contudo, o termo ``sistemas de recomendação'' é mais usado por ser mais geral, não sendo realizada, necessariamente, nenhuma colaboração entre pessoas\cite{reategui2005sistemas}. Já em 1996 o \textit{Yahoo} utilizou sistemas de recomendação em uma de suas páginas, aplicando em larga escala\cite{reategui2005sistemas}, coisa que hoje é feita comumente por diversos sites e serviços.
 
 É facilmente perceptível no cotidiano o uso de sistemas de recomendação em ambientes on-line. Ao usar a \textit{Netflix}, sugestões para o usuário são oferecidas, baseadas nas atrações já assistidas e/ou avaliadas. Sites de compras como a \textit{Amazon} também oferecem sugestões de produtos ao usuário baseado em visitas à página dos produtos ou no comportamento de outros usuários que compraram um mesmo produto. Também em redes sociais, como no \textit{YouTube}, são sugeridos vídeos baseados no histórico do internauta e nas suas avaliações, ou então no \textit{Facebook}, que recomenda lista de pessoas que o usuário pode conhecer\cite{gorakala2015building}.
 
@@ -321,7 +323,7 @@ Este trabalho tem os seguintes objetivos:
 
 \begin{itemize}
 
-\item{Apresentar técnicas de sistemas de recomendação, executar algumas destas técnicas de filtragem colaborativa e avaliá-las.}
+\item{Apresentar técnicas de sistemas de recomendação, executar algumas destas técnicas de filtragem colaborativa e compará-las.}
 
 \end{itemize}
 
@@ -330,9 +332,11 @@ Este trabalho tem os seguintes objetivos:
 
 \chapter{Materiais e Métodos}
 
-\section{Conjunto de dados \textit{MovieLense}}
+\section{Conjunto de dados}
 
-Foi utilizado o \textit{dataset MovieLense}, disponível no pacote \textit{recommenderlab}, que apresenta dados coletados no site \textit{MovieLens}, entre 19 de setembro de 1997 e 22 de abril de 1998. O conjunto de dados apresenta as avaliações numéricas de 943 usuários (escala de 1 a 5) a 1664 filmes\cite{recommenderlab}.
+Será utilizado um \textit{dataset} disponível no site \textit{grouplens}, disponível em \url{https://grouplens.org/datasets/movielens/1m/}. O conjunto de dados possui $\num{1000209}$ avaliações de $3900$ filmes dados por $6040$ usuários\cite{harper2016movielens}, que se cadastraram no site \textit{MovieLens} no ano de 2000.
+
+Os usuários são representados pelo seu ID, que varia entre $1$ e $6040$ e os filmes possuem ID entre $1$ e $3952$. As avaliações têm formato numérico, de até 5 estrelas, com estrelas completas, tendo cada usuário avaliado ao menos 20 filmes.
 
 \section{Metodologia}
 
@@ -354,7 +358,7 @@ Alternativamente, a similaridade entre os itens $i$ e $j$ pode ser medida consid
 w_{i, j} = \cos({\vec{r}_i, \vec{r}_j}) = \frac{\vec{r}_i \boldsymbol{\cdot} \vec{r}_j}{\lVert \vec{r}_i\rVert \times \lVert \vec{r}_i\rVert} = \frac{\sum_{u=1}^{n}{r_{u, i} r_{u, j}}}{\sqrt{\sum_{u=1}^{n}{r^2_{u, i}} \sum{_{u=1}^{n}{r^2_{u, j}}}}}
 \end{equation}
 
-A seguir, o *rating* do item $i$ pelo usuário $a$ pode ser previsto da seguinte forma\cite{melville2011recommender}:
+A seguir, o \textit{rating} do item $i$ pelo usuário $a$ pode ser previsto da seguinte forma\cite{melville2011recommender}:
 
 \begin{equation}
 p_{a, i} = \frac{\sum_{j \in k}{r_{a, i} - w_{i, j}}}{\sum_{j \in k}{\left|w_{i, j}\right|}}
