@@ -131,7 +131,35 @@ p_{a, i} = \overline{r}_a + \frac{\sum_{u \in k}{(r_{u, i} - \overline{r}_u) w_{
 
 - Onde $k$ é a vizinhança do usuário $a$.
 
-## Planos para Projeto Final II
+## Conclusão e planos para Projeto Final II
 
+- Técnicas muito utilizadas.
+- Benefícios trazidos para lojas e usuários.
+- Alguns pacotes do R.
 - Incluir filtragem colaborativa *model based*, em especial ALS.
 - Divisão em clusters antes de rodar algoritmos e comparar resultados.
+
+## Referências:
+
+- ISINKAYE, F.; FOLAJIMI, Y.; OJOKOH, B. Recommendation systems: Principles,
+methods and evaluation. Egyptian Informatics Journal, Elsevier, v. 16, n. 3, p. 261–273, 2015.
+- MILD, A.; NATTER, M. Collaborative filtering or regression models for internet recommendation systems? Journal of Targeting, Measurement and Analysis for marketing, Springer, v. 10, n. 4, p. 304–313, 2002.
+- TAKAHASHI, M. M.; JR, R. H. Estudo comparativo de algoritmos de recomendação. USP. São Paulo, 2015.
+- SHAPIRA, B. et al. Recommender systems handbook. [S.l.]: Springer New York, 2011.
+- MELVILLE, P.; SINDHWANI, V. Recommender systems. In: Encyclopedia of machine
+learning. [S.l.]: Springer, 2011. p. 829–838.
+
+## Referências
+
+- REATEGUI, E. B.; CAZELLA, S. C. Sistemas de recomendação. In: XXV Congresso
+da Sociedade Brasileira de Computação. [S.l.: s.n.], 2005. p. 306–348.
+- GORAKALA, S. K.; USUELLI, M. Building a recommendation system with R. [S.l.]: Packt Publishing Ltd, 2015.
+- HARPER, F. M.; KONSTAN, J. A. The movielens datasets: History and context.
+Acm transactions on interactive intelligent systems (tiis), ACM, v. 5, n. 4, p. 19, 2016.
+- HAHSLER, M. recommenderlab: A framework for developing and testing recommendation algorithms. [S.l.], 2015.
+- SARWAR, B. et al. Item-based collaborative filtering recommendation algorithms. In: ACM. Proceedings of the 10th international conference on World Wide Web. [S.l.], 2001. p. 285–295.
+
+
+##
+\textbf{Obrigado!}
+
