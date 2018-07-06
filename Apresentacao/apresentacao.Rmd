@@ -9,7 +9,7 @@ output:
 
 ## Introdução
 
-- Técnicas de \textit{machine learning} que filtram um grande conjunto de dados, tendo como base informações dos usuários, prevendo avaliações dos usuários aos itens e recomenda-se o(s) item(ns) que obtiveram uma nota prevista maior.
+- Técnicas de \textit{machine learning} que filtram um grande conjunto de dados, tendo como base informações dos usuários, prevendo avaliações dos usuários aos itens para recomendar o(s) item(ns) que obtiveram uma nota prevista maior.
 - Variedade de informações ofertadas e coletadas no ambiente digital, principalmente.
 - Desafio de lidar com os dados coletados.
 - Utilização das avaliações dos usuários para os itens.
