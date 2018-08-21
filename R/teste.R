@@ -2,7 +2,7 @@ require(recommenderlab)
 require(dplyr)
 require(data.table)
 
-dados <- data.table(do.call(rbind, strsplit(readLines('C:\\Users\\leo-f\\Desktop\\Leonardo\\UFF\\TCC\\trab_recom\\Dados\\ml-1m\\ratings.dat'),'::' )))
+dados <- data.table(do.call(rbind, strsplit(readLines('Dados\\ml-1m\\ratings.dat'),'::' )))
 names(dados) <- c("UserID", "MovieID", "Rating", "Timestamp")
 
 as_data_frame(dados)
