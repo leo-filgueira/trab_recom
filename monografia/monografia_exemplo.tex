@@ -4,6 +4,7 @@
 \usepackage[utf8]{inputenc} 
 
 \usepackage{hyperref}
+\usepackage{breakurl}
 \usepackage{bookmark}
 \usepackage{amsmath,amssymb,amsfonts,undertilde}
 \usepackage{graphicx}
@@ -278,7 +279,21 @@ Em geral, sistemas de recomendação utilizam como informação a avaliação (\
 
 \end{itemize}
 
-Os algoritmos de recomendação utilizam uma matriz, chamada de matriz de avaliações (\textit{ratings matrix}), usualmente representada desta forma:
+\section{Técnicas de recomendação}
+
+Existem diferentes categorias de sistemas de recomendação, que podem ser classificados em: Filtragem baseada em conteúdo (\textit{Content-based filtering}), filtragem colaborativa (\textit{Collaborative filtering}) e sistemas de recomendação híbridos (\textit{Hybrid Recommender Systems})\cite{melville2011recommender}.
+
+\subsection{Filtragem baseada em conteúdo}
+
+Os sistemas nesta categoria recomendam itens similares aos que o usuário gostou no passado\cite{gorakala2015building}. Para isto é necessário utilizar informações das características de um produto\cite{shapira2011recommender} e comparar com o perfil do usuário, de acordo com itens já conhecidos pelo usuário. Considerando filmes como itens, se um usuário avaliou positivamente filmes do gênero de ação, então o sistema recomendará a este usuário filmes de ação. Por outro lado, a filtragem baseada em conteúdo não leva em conta a similaridade de preferência entre os usuários, mas apenas o histórico do usuário e as características dos itens\cite{gorakala2015building}.
+
+Algumas das técnicas utilizadas neste tipo de filtragem são: TF/IDF (\textit{Term Frequency Inverse Document}), \textit{naive Bayes Classifier}, árvores de decisão ou redes neurais\cite{isinkaye2015recommendation}. 
+
+\subsection{Filtragem colaborativa}
+
+Na filtragem colaborativa são recomendados itens de acordo com as avaliações de todos os usuários\cite{melville2011recommender}. Existem dois duas maneiras principais de realizar essa filtragem: baseado em memória ou em modelo\cite{dakhel2011new}. Nos algoritmos baseados em memória, verifica-se a similaridade entre usuários (vizinhança), de acordo com suas avaliações passadas. Essa técnica é a mais utilizada para realizar recomendações\cite{shapira2011recommender}. Um exemplo simples seria: Se o usuário 1 comprou o item A, B e C, e o usuário 2 comprou os itens A e C, então recomenda-se o item B para o usuário 2.
+
+Os algoritmos de filtragem colaborativa utilizam uma matriz, chamada de matriz de avaliações (\textit{ratings matrix}), usualmente representada desta forma:
 
 \begin{table}[!h]
 \centering
@@ -297,19 +312,7 @@ Usuário $n$ &  &             & $\cdots$ & $r_{(n, m)}$ \\
 
 Onde $r_{(i, j)}$ é a avaliação (\textit{rating}) do usuário $i$ dado ao item $j$. Em geral, os usuários não tiveram contato com todos os itens, então os itens não recebem avaliações de todos os usuários, produzindo então uma matriz esparsa (com grande quantidade de valores faltantes). Os algoritmos buscam, então, preencher a matriz de avaliações com previsões para os valores faltantes.
 
-\section{Técnicas de recomendação}
-
-Existem diferentes categorias de sistemas de recomendação, que podem ser classificados em: Filtragem baseada em conteúdo (\textit{Content-based filtering}), filtragem colaborativa (\textit{Collaborative filtering}) e sistemas de recomendação híbridos (\textit{Hybrid Recommender Systems})\cite{melville2011recommender}.
-
-\subsection{Filtragem baseada em conteúdo}
-
-Os sistemas nesta categoria recomendam itens similares aos que o usuário gostou no passado\cite{gorakala2015building}. Para isto é necessário utilizar informações das características de um produto\cite{shapira2011recommender} e comparar com o perfil do usuário, de acordo com itens já conhecidos pelo usuário. Considerando filmes como itens, se um usuário avaliou positivamente filmes do gênero de ação, então o sistema recomendará a este usuário filmes de ação. Por outro lado, a filtragem baseada em conteúdo não leva em conta a similaridade de preferência entre os usuários, mas apenas o histórico do usuário e as características dos itens\cite{gorakala2015building}.
-
-Algumas das técnicas utilizadas neste tipo de filtragem são: TF/IDF (\textit{Term Frequency Inverse Document}), \textit{naive Bayes Classifier}, árvores de decisão ou redes neurais\cite{isinkaye2015recommendation}. 
-
-\subsection{Filtragem colaborativa}
-
-Na filtragem colaborativa são recomendados itens de acordo com as avaliações de todos os usuários\cite{melville2011recommender}. Para isto verifica-se a similaridade entre usuários (vizinhança), de acordo com suas avaliações passadas. Essa técnica é a mais utilizada para realizar recomendações\cite{shapira2011recommender}. Um exemplo simples seria: Se o usuário 1 comprou o item A, B e C, e o usuário 2 comprou os itens A e C, então recomenda-se o item B para o usuário 2.
+A medida, porém, em que os números de usuários e items aumentam, podem surgir problemas ao realizar a filtragem, como o aumento do tempo necessário, além de recursos computacionais, para executar o algoritmo, chamado de problema de escalabilidade\cite{dakhel2011new}. Além disso, existe o problema da esparsidade, pois um usuário, em geral, não avaliou uma grande quantidade de itens, mas apenas uma pequena quantidade, o que pode causar a impossibilidade do cálculo de medidas de similaridade (pois itens precisam ter sido avaliados por dois usuários), ou então pode levar, graças a pequena quantidade de informação utilizada no cálculo da medida, a uma medida que não represente bem a real similaridade entre os usuários\cite{dakhel2011new}.
 
 \subsection{Sistemas de recomendação híbridos}
 
@@ -321,26 +324,21 @@ Este trabalho tem os seguintes objetivos:
 
 \section{Objetivo geral}
 
-\begin{itemize}
-
-\item{Apresentar técnicas de sistemas de recomendação, executar algumas destas técnicas de filtragem colaborativa e compará-las.}
-
-\end{itemize}
+Comparar a acurácia das recomendações utilizando filtragem colaborativa para todo o conjunto de dados com as recomendações utilizando filtragem colaborativa para cada cluster de usuários.
 
 \section{Objetivos específicos}
-
 
 \chapter{Materiais e Métodos}
 
 \section{Conjunto de dados}
 
-Será utilizado um \textit{dataset} disponível no site \textit{grouplens}, disponível em \url{https://grouplens.org/datasets/movielens/1m/}. O conjunto de dados possui $\num{1000209}$ avaliações de $3900$ filmes dados por $6040$ usuários\cite{harper2016movielens}, que se cadastraram no site \textit{MovieLens} no ano de 2000.
+Será utilizado um \textit{dataset} disponível no site \textit{grouplens}, disponível em \burl{https://grouplens.org/datasets/movielens/1m/}. O conjunto de dados possui $\num{1000209}$ avaliações de $3900$ filmes dados por $6040$ usuários\cite{harper2016movielens}, que se cadastraram no site \textit{MovieLens} no ano de 2000. De acordo com o próprio site, pessoas podem se inscrever para avaliar filmes e receber recomendações de filmes para assistir.
 
 Os usuários são representados pelo seu ID, que varia entre $1$ e $6040$ e os filmes possuem ID entre $1$ e $3952$. As avaliações têm formato numérico, de até 5 estrelas, com estrelas completas, tendo cada usuário avaliado ao menos 20 filmes.
 
 \section{Metodologia}
 
-Haverão um conjunto de usuários $U = \{u_1, u_2, \ldots, u_n\}$ e um conjunto de itens $I = \{i_1, i_2, \ldots, i_m \}$, assim como as notas dos usuários aos itens, que serão armazenadas na matrix $\bold{R}_{n \times m}$ de avaliações\cite{hahsler2015recommenderlab}. Logo, cada linha da matriz $\bold{R}$ representa um usuário e cada coluna, um item. Os algoritmos buscarão preencher os valores faltantes desta matriz, com valores na mesma escala das avaliações presentes na matriz\cite{takahashi2015estudo}.
+Haverão um conjunto de usuários $U = \{u_1, u_2, \ldots, u_n\}$ e um conjunto de itens $I = \{i_1, i_2, \ldots, i_m \}$, assim como as notas dos usuários aos itens, que serão armazenadas na matrix $\boldsymbol{R}_{n \times m}$ de avaliações\cite{hahsler2015recommenderlab}. Logo, cada linha da matriz $\boldsymbol{R}$ representa um usuário e cada coluna, um item. Os algoritmos buscarão preencher os valores faltantes desta matriz, com valores na mesma escala das avaliações presentes na matriz\cite{takahashi2015estudo}.
 
 \subsection{Filtragem colaborativa baseada no item (item-based)}
 
@@ -390,9 +388,42 @@ p_{a, i} = \overline{r}_a + \frac{\sum_{u \in k}{(r_{u, i} - \overline{r}_u) w_{
 
 Sendo $k$ a vizinhança do usuário $a$.
 
-% \section{Alternating Least Squares (ALS)}
-% Colocar ou não colocar? Se sim, referências?
+\subsection{\textit{PAM} (Partitioning Around Medoids)}
 
+O algoritmo de agrupamento \textit{PAM} é baseado na definição de \textit{medoide}, que é o ponto com menor distância, em média, de todos os outros elementos do cluster. O algoritmo, para obter $k$ clusters, é executado da seguinte maneira\cite{do2005agrupamentos}:
+
+\begin{enumerate}
+
+\item{Definir aleatoriamente $k$ medoides.}
+\item{Associar cada um dos elementos restantes a um cluster, sendo pertencente ao grupo de medoide mais próximo.}
+\item{Calcular a dissimilaridade entre um elemento $x_i$ e todos os outros do cluster, e a dissimilaridade entre o medoide e os outros elementos do cluster.}
+\item{Caso a distância considerando $x_i$ seja menor que a distância do medoide, passe a considerar $x_i$ como medoide daquele cluster.}
+\item{Repetir os passos 2 a 4 até não haver troca de medoides.}
+
+\end{enumerate}
+
+Uma desvantagem desse método é a ineficiência ao ser aplicado para um grande conjunto de dados\cite{park2009simple}.
+
+\subsection{\textit{CLARA} (Clustering Large Applications)}
+
+Essa técnica foi proposta, em 1990, de forma a aplicar o PAM, solucionando o problema de escalabilidade, ao utilizar amostragem para a aplicação do PAM\cite{park2009simple}. O método, então, seleciona aleatoriamente uma parte da base de dados e aplica o algoritmo PAM nesta amostra. Em seguida é calculada a função de custo, que é uma média da similaridade entre os medoides e os outros elementos da base\cite{bhat2014k}. A função de custo é definida da seguinte maneira:
+
+\begin{equation}
+C(m, D) = \frac{\sum_{i=1}^{n}{d(x_i, cl(m, x_i))}}{n}
+\end{equation}
+
+Onde:
+
+\begin{itemize}
+
+\item{$m$ são os medoides encontrados.}
+\item{$cl(m,  x_i)$ é o medoide mais próximo de um ponto $x_i$.}
+\item{$d(x_i, cl(m, x_i))$ é uma medida de similaridade entre $x_i$ e seu medoide mais próximo.}
+\item{$n$ é o número de observações na base de dados $D$.}
+
+\end{itemize}
+
+Todo o processo é repetido um número determinado de vezes e o resultado que obtiver menor função de custo é definido, então como o melhor e é retornado\cite{bhat2014k}.
 
 % \section{Algumas Dicas}
 % 
