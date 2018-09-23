@@ -1,9 +1,11 @@
 require(recommenderlab)
 
 source("R/cluster.R", echo = T)
-rm(filmes, lista_clara, not_all_na, cluster_splitado)
+rm(filmes, not_all_na, cluster_splitado)
 
-#70% treino, 30% verificação
+write.csv2(round(lista_clara$medoids, 4), "R/clusters.csv", row.names = T)
+
+# 70% treino, 30% verificação
 # set.seed(1)
 # amostra_treino <- sample(1:nrow(dados), 0.7*nrow(dados))
 # 

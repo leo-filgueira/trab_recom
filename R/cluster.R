@@ -4,6 +4,8 @@ require(tidyr)
 require(cluster)
 require(tibble)
 
+set.seed(123)
+
 filmes <- data.table(do.call(rbind, strsplit(readLines('C:\\Users\\leo-f\\Desktop\\Leonardo\\UFF\\TCC\\trab_recom\\Dados\\ml-1m\\movies.dat'),'::' )))
 names(filmes) <- c("MovieID", "Filme", "Genero")
 
@@ -36,7 +38,7 @@ dados2 <- dados2 %>%
   column_to_rownames("UserID")
 
 # library(factoextra)
-# fviz_nbclust(dados2, clara, method = "silhouette")+
+# fviz_nbclust(dados2, clara, method = "silhouette") +
 #   theme_classic()
 
 lista_clara <- clara(dados2, 4, correct.d = T)
