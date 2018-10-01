@@ -41,20 +41,43 @@ dados2 <- dados2 %>%
 # fviz_nbclust(dados2, clara, method = "silhouette") +
 #   theme_classic()
 
-lista_clara <- clara(dados2, 4, correct.d = T)
+lista_clara_2 <- clara(dados2, 2, correct.d = T)
+lista_clara_3 <- clara(dados2, 3, correct.d = T)
+lista_clara_4 <- clara(dados2, 4, correct.d = T)
+lista_clara_5 <- clara(dados2, 5, correct.d = T)
+
 # print(lista_clara)
 # head(as.data.frame(lista_clara$clustering))
 
 # lista_clara$medoids
 
+clusters <- lista_clara_2$clustering %>% 
+  as.data.frame() %>% 
+  rownames_to_column("UserID") %>% 
+  select(UserID, cluster_2 = 2) %>% 
+  inner_join(
+    lista_clara_3$clustering %>% 
+      as.data.frame() %>% 
+      rownames_to_column("UserID") %>% 
+      select(UserID, cluster_3 = 2)
+  ) %>% 
+  inner_join(
+    lista_clara_4$clustering %>% 
+      as.data.frame() %>% 
+      rownames_to_column("UserID") %>% 
+      select(UserID, cluster_4 = 2)
+  ) %>% 
+  inner_join(
+    lista_clara_5$clustering %>% 
+      as.data.frame() %>% 
+      rownames_to_column("UserID") %>% 
+      select(UserID, cluster_5 = 2)
+  )
+
 dados2 <- dados2 %>% 
   rownames_to_column("UserID") %>% 
-  inner_join(
-    as.data.frame(lista_clara$clustering) %>% 
-      rownames_to_column("UserID") %>% 
-      select(UserID, cluster = 2)
-  ) %>% 
-  select(UserID, cluster, everything()) %>% 
+  inner_join(clusters) %>% 
+  select(UserID, starts_with("cluster"), everything()) %>% 
   as_tibble()
   
 # aov(Comedy~cluster, data = dados2)
@@ -65,14 +88,14 @@ dados <- dados %>%
   select(-Timestamp) %>% 
   left_join(
     dados2 %>% 
-      select(UserID, cluster)
+      select(UserID, contains("cluster"))
   ) %>% 
   as_tibble()
 
-cluster_splitado <- split(dados, dados$cluster)
+cluster_splitado <- split(dados, dados$cluster_4)
 
-cluster1 <- cluster_splitado[[1]] # 950 usuários
-cluster2 <- cluster_splitado[[2]] # 2250 usuários
-cluster3 <- cluster_splitado[[3]] # 2113 usuários
-cluster4 <- cluster_splitado[[4]] # 727 usuários
+cluster1 <- cluster_splitado[[1]]
+cluster2 <- cluster_splitado[[2]]
+cluster3 <- cluster_splitado[[3]]
+cluster4 <- cluster_splitado[[4]]
 
