@@ -27,9 +27,6 @@ dados2 <- dados %>%
   filter(!is.na(genero)) %>% 
   as_data_frame()
 
-# dados2 %>% 
-#   filter(is.na(genero))
-
 dados2 <- dados2 %>% 
   group_by(UserID, genero) %>% 
   summarise(rating_medio = mean(Rating)) %>% 
@@ -41,38 +38,13 @@ dados2 <- dados2 %>%
 # fviz_nbclust(dados2, clara, method = "silhouette") +
 #   theme_classic()
 
-lista_clara_2 <- clara(dados2, 2, correct.d = T)
-lista_clara_3 <- clara(dados2, 3, correct.d = T)
-lista_clara_4 <- clara(dados2, 4, correct.d = T)
-lista_clara_5 <- clara(dados2, 5, correct.d = T)
+for(i in 2:15){
+  assign(paste0("lista_clara_", i), clara(dados2, i, correct.d = T))
+}
 
-# print(lista_clara)
-# head(as.data.frame(lista_clara$clustering))
-
-# lista_clara$medoids
-
-clusters <- lista_clara_2$clustering %>% 
-  as.data.frame() %>% 
-  rownames_to_column("UserID") %>% 
-  select(UserID, cluster_2 = 2) %>% 
-  inner_join(
-    lista_clara_3$clustering %>% 
-      as.data.frame() %>% 
-      rownames_to_column("UserID") %>% 
-      select(UserID, cluster_3 = 2)
-  ) %>% 
-  inner_join(
-    lista_clara_4$clustering %>% 
-      as.data.frame() %>% 
-      rownames_to_column("UserID") %>% 
-      select(UserID, cluster_4 = 2)
-  ) %>% 
-  inner_join(
-    lista_clara_5$clustering %>% 
-      as.data.frame() %>% 
-      rownames_to_column("UserID") %>% 
-      select(UserID, cluster_5 = 2)
-  )
+# Script que junta saídas do clara no objeto "clusters"
+source("R/junta_clusters.R")
+as_tibble(clusters)
 
 dados2 <- dados2 %>% 
   rownames_to_column("UserID") %>% 
@@ -80,10 +52,6 @@ dados2 <- dados2 %>%
   select(UserID, starts_with("cluster"), everything()) %>% 
   as_tibble()
   
-# aov(Comedy~cluster, data = dados2)
-# kruskal.test(Comedy~cluster, data = dados2)
-# apply(dados2[, -c(1, 2)], 2, function(x){summary(aov(x~dados2$cluster))})
-
 dados <- dados %>% 
   select(-Timestamp) %>% 
   left_join(
@@ -91,11 +59,11 @@ dados <- dados %>%
       select(UserID, contains("cluster"))
   ) %>% 
   as_tibble()
-
-cluster_splitado <- split(dados, dados$cluster_4)
-
-cluster1 <- cluster_splitado[[1]]
-cluster2 <- cluster_splitado[[2]]
-cluster3 <- cluster_splitado[[3]]
-cluster4 <- cluster_splitado[[4]]
+# 
+# cluster_splitado <- split(dados, dados$cluster_4)
+# 
+# cluster1 <- cluster_splitado[[1]]
+# cluster2 <- cluster_splitado[[2]]
+# cluster3 <- cluster_splitado[[3]]
+# cluster4 <- cluster_splitado[[4]]
 
