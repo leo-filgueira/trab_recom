@@ -38,21 +38,28 @@ dados2 <- dados2 %>%
 # fviz_nbclust(dados2, clara, method = "silhouette") +
 #   theme_classic()
 
-for(i in 2:15){
+for(i in 2:5){
   assign(paste0("lista_clara_", i), clara(dados2, i, correct.d = T))
 }
 
-# Script que junta saídas do clara no objeto "clusters"
+# Script cm clusters por proporção de filmes assistidos por genero
+source("R/Cluster_prop.R")
+
+# Script que junta saídas do clara com rating médio no objeto "clusters_rating"
+# E saída com proporção de filmes vistos no objeto "clusters_prop"
 source("R/junta_clusters.R")
-as_tibble(clusters)
+
+as_tibble(clusters_rating)
+as_tibble(clusters_prop)
 
 dados2 <- dados2 %>% 
   rownames_to_column("UserID") %>% 
-  inner_join(clusters) %>% 
+  inner_join(clusters_rating) %>% 
+  inner_join(clusters_prop) %>% 
   select(UserID, starts_with("cluster"), everything()) %>% 
   as_tibble()
   
-dados <- dados %>% 
+dados_cluster <- dados %>% 
   select(-Timestamp) %>% 
   left_join(
     dados2 %>% 
