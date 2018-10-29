@@ -15,7 +15,7 @@ erro_cluster <- function(dados, cluster){
     nome <- paste0("cluster", i)
     assign(nome, cluster_splitado[[i]] %>% 
              as.data.frame() %>% 
-             select(-!!cluster))
+             select(-contains("cluster")))
   
     teste <- as(get(nome), "realRatingMatrix")
   
