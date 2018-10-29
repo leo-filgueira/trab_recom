@@ -1,12 +1,14 @@
+source("R/fun_cluster.R")
+
 ## Erro com todo mundo
 
-teste <- as(dados %>% 
-              select(-contains("cluster")) %>% 
+rmatrix <- as(dados %>% 
+              # select(-contains("cluster")) %>% 
               as.data.frame(), "realRatingMatrix")
 
-min(rowCounts(teste))
+min(rowCounts(rmatrix))
 
-model_train_scheme <- evaluationScheme(teste, train = 0.7, goodRating = 4, given = 18)
+model_train_scheme <- evaluationScheme(rmatrix, train = 0.7, goodRating = 4, given = 18)
 
 model <- getData(model_train_scheme, "train") %>% #only fit on the 70% training data.
   Recommender(method = "UBCF", parameter = list(method = "pearson"))
@@ -110,16 +112,71 @@ summary(test_error)
 # 
 # par(mfrow = c(2, 2), mar = c(2, 2.5, 1.55, 1))
 
-c2 <- erro_cluster(dados, cluster_2)
-c2
+# Erros com cluster a partir do rating
+c2_rating <- erro_cluster(dados_cluster, cluster_2_rating)
+c2_rating
 
-c3 <- erro_cluster(dados, cluster_3)
-c3
+c3_rating <- erro_cluster(dados_cluster, cluster_3_rating)
+c3_rating
 
-c4 <- erro_cluster(dados, cluster_4)
-c4
+c4_rating <- erro_cluster(dados_cluster, cluster_4_rating)
+c4_rating
 
-test_error
-colMeans(do.call(rbind, c2))
-colMeans(do.call(rbind, c3))
-colMeans(do.call(rbind, c4))
+c5_rating <- erro_cluster(dados_cluster, cluster_5_rating)
+c5_rating
+
+# Erros com cluster a partir da proporção
+
+c2_prop <- erro_cluster(dados_cluster, cluster_2_prop)
+c2_prop
+
+c3_prop <- erro_cluster(dados_cluster, cluster_3_prop)
+c3_prop
+
+c4_prop <- erro_cluster(dados_cluster, cluster_4_prop)
+c4_prop
+
+c5_prop <- erro_cluster(dados_cluster, cluster_5_prop)
+c5_prop
+
+
+erro_cl_rating <- colMeans(do.call(rbind, c2_rating)) %>% 
+  bind_rows(
+    colMeans(do.call(rbind, c3_rating))
+  ) %>% 
+  bind_rows(
+    colMeans(do.call(rbind, c4_rating))
+  ) %>% 
+  bind_rows(
+    colMeans(do.call(rbind, c5_rating))
+  ) %>% 
+  mutate(num_clusters = 2:5)
+
+erro_cl_prop <- colMeans(do.call(rbind, c2_prop)) %>% 
+  bind_rows(
+    colMeans(do.call(rbind, c3_prop))
+  ) %>% 
+  bind_rows(
+    colMeans(do.call(rbind, c4_prop))
+  ) %>% 
+  bind_rows(
+    colMeans(do.call(rbind, c5_prop))
+  ) %>% 
+  mutate(num_clusters = 2:5)
+
+erro <- test_error %>% 
+  t() %>% 
+  as.data.frame() %>% 
+  mutate(num_clusters = 0,
+         Tipo_cluster = "Nenhum") %>% 
+  bind_rows(
+    erro_cl_rating %>% 
+      mutate(Tipo_cluster = "Rating")) %>% 
+  bind_rows(
+    erro_cl_prop %>% 
+      mutate(Tipo_cluster = "Proporção"))
+
+erro %>% 
+  arrange_at(vars(1:3)) %>% 
+  select(Tipo_cluster, num_clusters, everything())
+  write.csv2("R/Erro_recomendacao.csv", row.names = F)
