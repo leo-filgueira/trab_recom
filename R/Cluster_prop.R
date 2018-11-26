@@ -21,6 +21,6 @@ dados3 <- dados3 %>%
 # fviz_nbclust(dados3, clara, method = "silhouette") +
 #   theme_classic()
 
-for(i in 2:5){
+for(i in 2:15){
   assign(paste0("lista_clara_", i, "_prop"), clara(dados3, i, correct.d = T))
 }
