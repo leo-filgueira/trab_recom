@@ -338,6 +338,8 @@ Será utilizado um \textit{dataset} disponível no site \textit{grouplens}, disp
 
 Os usuários são representados pelo seu ID, que varia entre $1$ e $6040$ e os filmes possuem ID entre $1$ e $3952$. As avaliações têm formato numérico, de até 5 estrelas, com estrelas completas, tendo cada usuário avaliado ao menos 20 filmes. O conjunto de dados também apresenta o gênero dos filmes.
 
+A base de dados será dividida em duas, treino e teste, na proporção de $70\%$ para treinar o modelo e $30\%$ que serão usados para que o modelo preveja as notas a fim de comparar com a nota real.
+
 \section{Metodologia}
 
 Haverão um conjunto de usuários $U = \{u_1, u_2, \ldots, u_n\}$ e um conjunto de itens $I = \{i_1, i_2, \ldots, i_m \}$, assim como as notas dos usuários aos itens, que serão armazenadas na matriz $\boldsymbol{R}_{n \times m}$ de avaliações\cite{hahsler2015recommenderlab}. Logo, cada linha da matriz $\boldsymbol{R}$ representa um usuário e cada coluna, um item. Os algoritmos buscarão preencher os valores faltantes desta matriz, com valores na mesma escala das avaliações presentes na matriz\cite{takahashi2015estudo}.
@@ -427,6 +429,47 @@ Onde:
 
 Todo o processo é repetido um número determinado de vezes e o resultado que obtiver menor função de custo é definido, então como o melhor e é retornado\cite{bhat2014k}.
 
+\subsection{\textit{K-Means}}
+
+K-means é uma técnica que particiona elementos em $k$ clusters utilziando-se de centroides, que são os elementos representativos de cada cluster. Este método busca minimizar a soma das distâncias dos elementos de um mesmo cluster. Dados então, uma matriz $D$, de dimensão $m \times n$, e um número de clusters $k$, o algoritmo, então, procede da seguinte maneira\cite{mining2006data}:
+
+\begin{enumerate}
+
+\item{São escolhidos, aleatoriamente, $k$ objetos de $D$ como sendo os centroides.}
+\item{Cada elemento $D_{i,}$ é associado ao centroide mais próximo, de acordo com a medida de distância adotada (neste caso, a distância Euclidiana).}
+\item{Os centroides de cada um dos clusters são calculados.}
+\item{Repetir os passos 2 e 3 até que não haja mudanças.}
+
+\end{enumerate}
+
+\subsection{Medidas de erro}
+
+Para verificar a acurácia do sistema de recomendação, dado que a base utilizada foi dividida em base de treino e de teste, serão comparadas a avaliação prevista e a avaliação observada. Considerando $r_{i,j}$ a avaliação observada e $p_{i,j}$ a avaliação prevista pelo modelo do usuário $i$ ao item $j$, as medidas utilizadas serão\cite{gorakala2015building}:
+
+\subsubsection{Erro médio absoluto}
+
+O erro médio absoluto (EMA) se dá pela soma do módulo das diferenças. 
+
+\begin{equation}
+EMA = \frac{1}{nm} \sum_{i=1}^{n} \sum_{j=1}^m \left| r_{i,j} - p_{i,j}  \right|
+\end{equation}
+
+\subsubsection{Erro quadrático médio}
+
+O erro quadrático médio (EQM) é a soma das diferenças ao quadrado. Por este motivo, a unidade de medida muda, e a sua interpretação deve ser cautelosa.
+
+\begin{equation}
+EQM = \frac{1}{nm} \sum_{i=1}^{n} \sum_{j=1}^m \left( r_{i,j} - p_{i,j}  \right)^2
+\end{equation}
+
+\subsubsection{Raiz do erro quadrático médio}
+
+Ao calcular a raiz do EQM obtém-se um número na mesma unidade de medida dos dados.
+
+\begin{equation}
+REQM = \sqrt{\frac{1}{nm} \sum_{i=1}^{n} \sum_{j=1}^m \left( r_{i,j} - p_{i,j}  \right)^2}
+\end{equation}
+
 
 % \section{Algumas Dicas}
 % 
@@ -453,8 +496,8 @@ Todo o processo é repetido um número determinado de vezes e o resultado que ob
 % Abra e feche as chaves e dentro delas coloque o comando \verb|\exe| seguido do exemplo.
 % }
 
-
 \chapter{Análise dos Resultados}
+
 
 
 % Neste capítulo deve-se apresentar os resultados, podendo comentá-los e discuti-los, comparando-os com resultados da bibliografia já existente. Use seções, se apropriado.
