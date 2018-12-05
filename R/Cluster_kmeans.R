@@ -12,7 +12,7 @@ dados2_imputados <- dados2 %>%
 
 for(i in 2:15){
   assign(paste0("kmeans_", i, '_clusters_rating'), 
-         kmeans(dados2_imputados, i, iter.max = 20))
+         kmeans(dados2_imputados, i, iter.max = 20, algorithm = "MacQueen"))
 }
 
 ## Com proporção de filmes assistidos
@@ -27,6 +27,6 @@ dados3_imputados <- dados3 %>%
 
 for(i in 2:15){
   assign(paste0("kmeans_", i, '_clusters_prop'), 
-         kmeans(dados3_imputados, i, iter.max = 20))
+         kmeans(dados3_imputados, i, iter.max = 20, algorithm = "MacQueen"))
 }
 
