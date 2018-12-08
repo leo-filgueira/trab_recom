@@ -482,5 +482,6 @@ erro <- test_error %>%
 
 erro %>% 
   arrange_at(vars(1:3)) %>% 
-  select(Tipo_cluster, num_clusters, everything()) %>% 
-  write.csv("R/Erro_recomendacao_15clusters.csv", row.names = F)
+  select(metodo, Tipo_cluster, Clusters = num_clusters, everything()) %>% 
+  mutate_at(vars(4:6), funs(round(., 4))) %>% 
+  write.csv("R/Erro_recomendacao_15clusters_v2.csv", row.names = F)
