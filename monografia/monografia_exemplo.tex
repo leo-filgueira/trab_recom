@@ -11,7 +11,7 @@
 \usepackage{subfigure}
 \usepackage{fancyhdr}
 \usepackage{siunitx}
-
+\usepackage{longtable}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Teoremas, definicoes, etc%
@@ -300,7 +300,7 @@ Os algoritmos de filtragem colaborativa utilizam uma matriz, chamada de matriz d
 \caption{Típica matriz $\mathbf{R}$ de avaliações}
 \label{rating_matrix}
 \begin{tabular}{c|c|c|c|c}
-\hline \\
+\hline
             & Item 1      & Item 2      & $\cdots$ & Item m      \\
 Usuário 1   & $r_{(1, 1)}$ &             & $\cdots$  &             \\
 Usuário 2   &  & $r_{(2, 2)}$ & $\cdots$ & $r_{(2, m)}$ \\
@@ -401,7 +401,7 @@ O algoritmo de agrupamento \textit{PAM} é baseado na definição de \textit{med
 \item{Definir aleatoriamente $k$ medoides.}
 \item{Associar cada um dos elementos restantes a um cluster, sendo pertencente ao grupo de medoide mais próximo.}
 \item{Calcular a dissimilaridade entre um elemento $x_i$ e todos os outros do cluster, e a dissimilaridade entre o medoide e os outros elementos do cluster.}
-\item{Caso a distância considerando $x_i$ seja menor que a distância do medoide, passe a considerar $x_i$ como medoide daquele cluster.}
+\item{Caso a distância considerando $x_i$ como novo medoide seja menor que a distância do medoide atual, passe a considerar $x_i$ como medoide daquele cluster.}
 \item{Repetir os passos 2 a 4 até não haver troca de medoides.}
 
 \end{enumerate}
@@ -427,11 +427,11 @@ Onde:
 
 \end{itemize}
 
-Todo o processo é repetido um número determinado de vezes e o resultado que obtiver menor função de custo é definido, então como o melhor e é retornado\cite{bhat2014k}.
+Todo o processo é repetido um número determinado de vezes e o resultado que obtiver menor função de custo é definido então como o melhor e é retornado\cite{bhat2014k}.
 
 \subsection{\textit{K-Means}}
 
-K-means é uma técnica que particiona elementos em $k$ clusters utilziando-se de centroides, que são os elementos representativos de cada cluster. Este método busca minimizar a soma das distâncias dos elementos de um mesmo cluster. Dados então, uma matriz $D$, de dimensão $m \times n$, e um número de clusters $k$, o algoritmo, então, procede da seguinte maneira\cite{mining2006data}:
+K-means é uma técnica que particiona elementos em $k$ clusters utilizando-se de centroides, que são os elementos representativos de cada cluster. Este método busca minimizar a soma das distâncias dos elementos de um mesmo cluster. Dados então, uma matriz $D$, de dimensão $m \times n$, e um número de clusters $k$, o algoritmo, então, procede da seguinte maneira\cite{mining2006data}:
 
 \begin{enumerate}
 
@@ -498,8 +498,97 @@ REQM = \sqrt{\frac{1}{nm} \sum_{i=1}^{n} \sum_{j=1}^m \left( r_{i,j} - p_{i,j}  
 
 \chapter{Análise dos Resultados}
 
+Os $6040$ usuários avaliaram pelo menos $20$ filmes. Na figura \ref{hist_num_ratings}, é possível notar que a maior parte dos usuários avaliou até $500$ filmes. Além disso, nota-se que essa distribuição apresenta uma assimetria a direita.
 
+\begin{figure}[h]
+\centering
+\includegraphics[]{../R/img/Distribuicao_ratings.png}
+\caption{Número de filmes avaliados}
+\label{hist_num_ratings}
+\end{figure}
 
+A tabela \ref{resumo_rating} apresenta algumas medidas resumo a respeito da quantidade de filmes avaliados pelos usuários. Nota-se uma grande amplitude, variância, desvio padrão e coeficiente de variação, o que indica uma grande variabilidade na quantidade de filmes avaliados. Metade dos usuários avaliou até 96 filmes. Além disso, 75\% dos usuários avaliaram 208 filmes, o que indica, como já foi indicado na figura \ref{hist_num_ratings}, que um número pequeno de usuários, diferentemente do comportamento da maior parte, avaliou uma grande quantidade de filmes.
+
+\begin{table}[h]
+\caption{Medidas resumo da quantidade de filmes avaliados}
+\label{resumo_rating}
+\centering
+\begin{tabular}{l|l|l|l|l|l|l}
+\hline
+\textbf{Min.} & \textbf{Mediana} & \textbf{Média} & \textbf{Max.} & \textbf{Variância} & \textbf{Desvio padrão} & \textbf{Coef. de variação} \\
+\hline
+20     & 96      & 165.6 & 2314   & 37151     & 193   & 1.16          \\
+\hline
+\end{tabular}
+\end{table}
+
+% Adicionar número de filmes, gêneros
+
+\begin{longtable}{l|l|l|l|l|l}
+\hline
+\textbf{Método}   & \textbf{Informação utilizada}  & \textbf{Clusters}  & \textbf{Raiz do EQM}   & \textbf{EQM}    & \textbf{EMA}    \\
+\hline
+\endhead
+%
+CLARA    & Rating         & 3         & 1.0055 & 1.0199 & 0.7983 \\
+k-means   & Proporção      & 12        & 1.0213 & 1.0444 & 0.8093 \\
+k-means   & Proporção      & 8         & 1.024  & 1.0495 & 0.8162 \\
+k-means   & Rating         & 12        & 1.0251 & 1.052  & 0.817  \\
+CLARA    & Rating         & 4         & 1.0254 & 1.0634 & 0.8188 \\
+k-means   & Proporção      & 15        & 1.0266 & 1.055  & 0.8182 \\
+k-means   & Rating         & 11        & 1.0278 & 1.0568 & 0.8156 \\
+CLARA    & Proporção      & 5         & 1.0288 & 1.0599 & 0.816  \\
+k-means   & Rating         & 15        & 1.03   & 1.0624 & 0.8219 \\
+CLARA    & Proporção      & 7         & 1.0315 & 1.0668 & 0.825  \\
+k-means   & Proporção      & 14        & 1.0325 & 1.0667 & 0.8191 \\
+k-means   & Rating         & 13        & 1.0328 & 1.0678 & 0.8193 \\
+k-means   & Proporção      & 6         & 1.0332 & 1.0682 & 0.8225 \\
+k-means   & Proporção      & 13        & 1.0333 & 1.0685 & 0.823  \\
+k-means   & Rating         & 6         & 1.0338 & 1.0688 & 0.8185 \\
+\multicolumn{3}{c}{\textbf{Sem clusterização}} & \textbf{1.0341} & \textbf{1.0693} & \textbf{0.8221} \\
+CLARA    & Proporção      & 12        & 1.0348 & 1.0742 & 0.8215 \\
+k-means   & Rating         & 14        & 1.0351 & 1.0723 & 0.8236 \\
+k-means   & Proporção      & 10        & 1.0358 & 1.074  & 0.8237 \\
+CLARA    & Proporção      & 6         & 1.0367 & 1.0764 & 0.8231 \\
+k-means   & Rating         & 9         & 1.0379 & 1.0775 & 0.8285 \\
+k-means   & Proporção      & 9         & 1.0387 & 1.0795 & 0.8273 \\
+k-means   & Proporção      & 4         & 1.0397 & 1.0814 & 0.8286 \\
+k-means   & Rating         & 3         & 1.0399 & 1.0815 & 0.8278 \\
+k-means   & Rating         & 8         & 1.041  & 1.084  & 0.83   \\
+k-means   & Rating         & 7         & 1.0413 & 1.0846 & 0.8287 \\
+k-means   & Proporção      & 2         & 1.042  & 1.0858 & 0.8295 \\
+CLARA    & Proporção      & 4         & 1.0422 & 1.0871 & 0.8306 \\
+k-means   & Proporção      & 11        & 1.0425 & 1.0884 & 0.8302 \\
+k-means   & Rating         & 10        & 1.0432 & 1.0888 & 0.8322 \\
+k-means   & Proporção      & 3         & 1.0443 & 1.0907 & 0.8345 \\
+k-means   & Rating         & 5         & 1.0446 & 1.0914 & 0.8351 \\
+CLARA    & Proporção      & 3         & 1.0447 & 1.0921 & 0.8301 \\
+CLARA    & Proporção      & 8         & 1.0452 & 1.1013 & 0.8348 \\
+k-means   & Rating         & 4         & 1.0462 & 1.0946 & 0.8351 \\
+CLARA    & Proporção      & 15        & 1.0468 & 1.1028 & 0.8378 \\
+k-means   & Rating         & 2         & 1.0476 & 1.0975 & 0.8378 \\
+CLARA    & Proporção      & 2         & 1.0476 & 1.0976 & 0.835  \\
+k-means   & Proporção      & 7         & 1.0518 & 1.1075 & 0.8368 \\
+CLARA    & Proporção      & 9         & 1.0585 & 1.1221 & 0.8452 \\
+k-means   & Proporção      & 5         & 1.0602 & 1.1242 & 0.8407 \\
+CLARA    & Proporção      & 11        & 1.0639 & 1.1374 & 0.8448 \\
+CLARA    & Proporção      & 10        & 1.0734 & 1.1555 & 0.8576 \\
+CLARA    & Proporção      & 14        & 1.0761 & 1.1611 & 0.8614 \\
+CLARA    & Proporção      & 13        & 1.0762 & 1.1642 & 0.8573 \\
+CLARA    & Rating         & 2         & 1.0827 & 1.1792 & 0.8711 \\
+CLARA    & Rating         & 6         & 1.0894 & 1.2354 & 0.8881 \\
+CLARA    & Rating         & 13        & 1.0948 & 1.2513 & 0.8915 \\
+CLARA    & Rating         & 10        & 1.1087 & 1.2502 & 0.9061 \\
+CLARA    & Rating         & 9         & 1.1091 & 1.2444 & 0.8942 \\
+CLARA    & Rating         & 14        & 1.1165 & 1.3091 & 0.9202 \\
+CLARA    & Rating         & 11        & 1.1167 & 1.2909 & 0.9197 \\
+CLARA    & Rating         & 5         & 1.1194 & 1.2743 & 0.9096 \\
+CLARA    & Rating         & 7         & 1.1282 & 1.299  & 0.928  \\
+CLARA    & Rating         & 8         & 1.1377 & 1.3082 & 0.9302 \\
+CLARA    & Rating         & 12        & 1.1867 & 1.5236 & 0.9671 \\
+CLARA    & Rating         & 15        & 1.1926 & 1.4865 & 0.9851 \\
+\hline
+\end{longtable}
 % Neste capítulo deve-se apresentar os resultados, podendo comentá-los e discuti-los, comparando-os com resultados da bibliografia já existente. Use seções, se apropriado.
 % 
 % Para que as tabelas e figuras sejam incluídas corretamente nas listas de tabelas e figuras use os comandos 
