@@ -8,7 +8,7 @@ rmatrix <- as(dados %>%
                 as.data.frame(), "realRatingMatrix")
 
 min(rowCounts(rmatrix))
-
+system.time({
 model_train_scheme <- evaluationScheme(rmatrix, train = 0.7, goodRating = 4, given = 18)
 
 model <- getData(model_train_scheme, "train") %>% #only fit on the 70% training data.
@@ -16,7 +16,7 @@ model <- getData(model_train_scheme, "train") %>% #only fit on the 70% training 
 
 model_pred <- predict(model, getData(model_train_scheme, "known"), type = "ratings")
 test_error <- calcPredictionAccuracy(model_pred, getData(model_train_scheme, "unknown"), byUser = F)
-
+})
 head(test_error)
 summary(test_error)
 
@@ -114,46 +114,61 @@ summary(test_error)
 # par(mfrow = c(2, 2), mar = c(2, 2.5, 1.55, 1))
 
 # Erros com cluster CLARA a partir do rating
+system.time({
 c2_rating_clara <- erro_cluster(dados_cluster, cluster_2_rating)
+})
 c2_rating_clara
 
-c3_rating_clara <- erro_cluster(dados_cluster, cluster_3_rating)
+system.time({
+c3_rating_clara <- erro_cluster(dados_cluster, cluster_3_rating)})
 c3_rating_clara
 
-c4_rating_clara <- erro_cluster(dados_cluster, cluster_4_rating)
+system.time({
+c4_rating_clara <- erro_cluster(dados_cluster, cluster_4_rating)})
 c4_rating_clara
 
-c5_rating_clara <- erro_cluster(dados_cluster, cluster_5_rating)
+system.time({
+c5_rating_clara <- erro_cluster(dados_cluster, cluster_5_rating)})
 c5_rating_clara
 
-c6_rating_clara <- erro_cluster(dados_cluster, cluster_6_rating)
+system.time({
+c6_rating_clara <- erro_cluster(dados_cluster, cluster_6_rating)})
 c6_rating_clara
 
-c7_rating_clara <- erro_cluster(dados_cluster, cluster_7_rating)
+system.time({
+c7_rating_clara <- erro_cluster(dados_cluster, cluster_7_rating)})
 c7_rating_clara
 
-c8_rating_clara <- erro_cluster(dados_cluster, cluster_8_rating)
+system.time({
+c8_rating_clara <- erro_cluster(dados_cluster, cluster_8_rating)})
 c8_rating_clara
 
-c9_rating_clara <- erro_cluster(dados_cluster, cluster_9_rating)
+system.time({
+c9_rating_clara <- erro_cluster(dados_cluster, cluster_9_rating)})
 c9_rating_clara
 
-c10_rating_clara <- erro_cluster(dados_cluster, cluster_10_rating)
+system.time({
+c10_rating_clara <- erro_cluster(dados_cluster, cluster_10_rating)})
 c10_rating_clara
 
-c11_rating_clara <- erro_cluster(dados_cluster, cluster_11_rating)
+system.time({
+c11_rating_clara <- erro_cluster(dados_cluster, cluster_11_rating)})
 c11_rating_clara
 
-c12_rating_clara <- erro_cluster(dados_cluster, cluster_12_rating)
+system.time({
+c12_rating_clara <- erro_cluster(dados_cluster, cluster_12_rating)})
 c12_rating_clara
 
-c13_rating_clara <- erro_cluster(dados_cluster, cluster_13_rating)
+system.time({
+c13_rating_clara <- erro_cluster(dados_cluster, cluster_13_rating)})
 c13_rating_clara
 
-c14_rating_clara <- erro_cluster(dados_cluster, cluster_14_rating)
+system.time({
+c14_rating_clara <- erro_cluster(dados_cluster, cluster_14_rating)})
 c14_rating_clara
 
-c15_rating_clara <- erro_cluster(dados_cluster, cluster_15_rating)
+system.time({
+c15_rating_clara <- erro_cluster(dados_cluster, cluster_15_rating)})
 c15_rating_clara
 
 # Erros com cluster CLARA a partir da proporção
