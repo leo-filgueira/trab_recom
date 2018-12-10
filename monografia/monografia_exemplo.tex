@@ -12,6 +12,7 @@
 \usepackage{fancyhdr}
 \usepackage{siunitx}
 \usepackage{longtable}
+\usepackage{booktabs}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Teoremas, definicoes, etc%
@@ -197,8 +198,8 @@ UNIRIO\\
 
 \vspace{2cm}
 \noindent\rule{8cm}{0.4pt}\\
-{\bf Prof. Dr. Nome do 2o membro da banca}\\
-Instituicao do 2o membro da banca\\
+{\bf Prof. Dr. Rodrigo Otávio de Araújo Ribeiro}\\
+UERJ\\
 
 \end{espacosimples}
 
@@ -221,18 +222,19 @@ Instituicao do 2o membro da banca\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %escreva aqui o resumo do seu trabalho%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{resumo}
-% % Aqui entra o resumo da monografia.
-% 
-% \vspace{1cm}
-% \noindent Palavras-chaves: 
-% %Aqui entram as palavras chaves.
-% 
-% 
-% \end{resumo}
-% 
-% 
-% 
+\begin{resumo}
+
+No ambiente digital, como lojas, serviços de \textit{streaming}, redes sociais, a sugestão de produtos, conteúdos, pessoas com quem se conectar, é realizada a todo momento, com base em informações dos diversos usuários e itens do site. A recomendação pode ser uma medida que facilita a navegação e experiência do usuário, além de potencialmente aumentar a fidelização dos clientes e o faturamento da empresa.
+
+Os sistemas de recomendação utilizam bases com grande volume de dados, o que pode ser um desafio para o seu processamento, e dividir a base em outras menores pode ser uma maneira de contornar o problema do processamento, além de ser uma possibilidade para atingir uma melhor performance das recomendações. Além de descrever alguns métodos de recomendação, este trabalho aplicará técnicas de clusterização sobre os usuários para comparar a acurácia e o tempo de processamento da recomendação de filmes para usuários.
+
+\vspace{1cm}
+\noindent Palavras-chaves:
+Sistemas de recomendação, filtragem colaborativa
+
+
+\end{resumo}
+
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %escreva aqui a sua dedicatória% (opcional)
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -259,7 +261,7 @@ Instituicao do 2o membro da banca\\
 
 A partir do aumento de informação disponível com a popularização da Internet e com a possibilidade de armazenar essas informações, surge o desafio de lidar com este grande conjunto de dados\cite{isinkaye2015recommendation}. Este aumento de informações desafia o site, como lojas on-line, que recebe todas as informações dos usuários que visitam o endereço, mas também pode se tornar um problema para o usuário que, diante da grande quantidade de produtos disponíveis para compra, pode levar muito tempo para achar o produto desejado\cite{mild2002collaborative}.
 
-Sistemas de recomendação são técnicas de \textit{machine learning} (aprendizado de máquina) que filtram um grande conjunto de dados, tendo como base informações dos usuários e itens\cite{takahashi2015estudo}. A partir dessas técnicas são previstas as notas que os usuários dariam a determinados itens, que podem ser dos mais variados tipos, e, para um indivíduo, recomenda-se o(s) item(ns) que obtiveram uma nota prevista maior\cite{shapira2011recommender}. Os sistemas de recomendação têm como objetivo recomendar itens que interessariam aos usuários\cite{melville2011recommender}, beneficiando o usuário e a loja, pois eles aumentam o desempenho da loja, fazendo-a vender uma quantidade maior de produtos, e também facilitam a procura do usuário fazendo-o achar produto(s) desejados em um menor tempo\cite{isinkaye2015recommendation}. 
+Sistemas de recomendação são técnicas de \textit{machine learning} (aprendizado de máquina) que filtram um grande conjunto de dados, tendo como base informações dos usuários e itens\cite{takahashi2015estudo}. A partir dessas técnicas são previstas as notas que os usuários dariam a determinados itens, que podem ser dos mais variados tipos, e, para um indivíduo, recomenda-se o(s) item(ns) que obtiveram uma nota prevista maior\cite{shapira2011recommender}. Os sistemas de recomendação têm como objetivo recomendar itens que interessariam aos usuários\cite{melville2011recommender}, beneficiando o usuário e a loja, pois eles aumentam o desempenho da loja, fazendo-a vender uma quantidade maior de produtos, e também facilitam a procura do usuário fazendo-o achar o(s) produto(s) desejado(s) em um menor tempo\cite{isinkaye2015recommendation}. 
 
 O primeiro sistema de recomendação foi criado na década de $90$ e tinha como nome ``filtragem colaborativa'', pois o sistema funcionava com base na colaboração entre os grupos de pessoas interessados. Contudo, o termo ``sistemas de recomendação'' é mais usado por ser mais geral, não sendo realizada, necessariamente, nenhuma colaboração entre pessoas\cite{reategui2005sistemas}. Já em 1996 o \textit{Yahoo} utilizou sistemas de recomendação em uma de suas páginas, aplicando em larga escala\cite{reategui2005sistemas}, coisa que hoje é feita comumente por diversos sites e serviços.
 
@@ -293,20 +295,19 @@ Algumas das técnicas utilizadas neste tipo de filtragem são: TF/IDF (\textit{T
 
 Na filtragem colaborativa são recomendados itens de acordo com as avaliações de todos os usuários\cite{melville2011recommender}. Existem duas maneiras principais de realizar essa filtragem: baseado em memória ou em modelo\cite{dakhel2011new}. Nos algoritmos baseados em memória, verifica-se a similaridade entre usuários ou entre itens (vizinhança), de acordo com suas avaliações passadas. Essa técnica é a mais utilizada para realizar recomendações\cite{shapira2011recommender}. Um exemplo simples seria: Se o usuário 1 comprou o item A, B e C, e o usuário 2 comprou os itens A e C, então recomenda-se o item B para o usuário 2.
 
-Os algoritmos de filtragem colaborativa utilizam uma matriz, chamada de matriz de avaliações (\textit{ratings matrix}), usualmente representada desta forma:
+Os algoritmos de filtragem colaborativa utilizam uma matriz, chamada de matriz de avaliações (\textit{ratings matrix}), usualmente representada como na tabela \ref{rating_matrix}.
 
-\begin{table}[!h]
-\centering
-\caption{Típica matriz $\mathbf{R}$ de avaliações}
+\begin{table}[h]
+\caption{Típica matriz \textbf{R} de avaliações}
 \label{rating_matrix}
-\begin{tabular}{c|c|c|c|c}
-\hline
-            & Item 1      & Item 2      & $\cdots$ & Item m      \\
-Usuário 1   & $r_{(1, 1)}$ &             & $\cdots$  &             \\
-Usuário 2   &  & $r_{(2, 2)}$ & $\cdots$ & $r_{(2, m)}$ \\
-$\vdots$       &    $\vdots$  & $\vdots$       &  $\ddots$ & $\vdots$ \\
-Usuário $n$ &  &             & $\cdots$ & $r_{(n, m)}$ \\
-\hline
+\centering
+\begin{tabular}{@{}c|cccc@{}}
+\cmidrule(l){2-5}
+\textbf{}   & Item 1       & Item 2       & $\cdots$ & Item m       \\ \midrule
+Usuário 1   & $r_{(1, 1)}$ &              & $\cdots$ &              \\
+Usuário 2   &              & $r_{(2, 2)}$ & $\cdots$ & $r_{(2, m)}$ \\
+$\vdots$    & $\vdots$     & $\vdots$     & $\ddots$ & $\vdots$     \\
+Usuário $n$ &              &              & $\cdots$ & $r_{(n, m)}$ \\ \bottomrule
 \end{tabular}
 \end{table}
 
@@ -330,15 +331,27 @@ Comparar a acurácia das recomendações utilizando filtragem colaborativa para 
 
 \section{Objetivos específicos}
 
+\begin{itemize}
+
+\item{Descrever informações de filmes e usuários.}
+\item{Analisar filmes avaliados e recomendados para determinado usuário.}
+\item{Comparar o tempo de execução da recomendação para as configurações escolhidas.}
+
+\end{itemize}
+
 \chapter{Materiais e Métodos}
 
 \section{Conjunto de dados}
 
 Será utilizado um \textit{dataset} disponível no site \textit{grouplens}, disponível em \burl{https://grouplens.org/datasets/movielens/1m/}. O conjunto de dados possui $\num{1000209}$ avaliações de $3900$ filmes dados por $6040$ usuários\cite{harper2016movielens}, que se cadastraram no site \textit{MovieLens} no ano de 2000. De acordo com o próprio site, pessoas podem se inscrever para avaliar filmes e receber recomendações de filmes para assistir.
 
-Os usuários são representados pelo seu ID, que varia entre $1$ e $6040$ e os filmes possuem ID entre $1$ e $3952$. As avaliações têm formato numérico, de até 5 estrelas, com estrelas completas, tendo cada usuário avaliado ao menos 20 filmes. O conjunto de dados também apresenta o gênero dos filmes.
+Os usuários são representados pelo seu ID, que varia entre $1$ e $6040$ e os filmes possuem ID entre $1$ e $3952$. As avaliações têm formato numérico, de até 5 estrelas, com estrelas completas, tendo cada usuário avaliado ao menos 20 filmes.
 
 A base de dados será dividida em duas, treino e teste, na proporção de $70\%$ para treinar o modelo e $30\%$ que serão usados para que o modelo preveja as notas a fim de comparar com a nota real.
+
+Será utilizada uma segunda base, que apresenta informações sobre os filmes, como o código, nome e gêneros do filme. Um mesmo filme pode ter sido associado a mais de um gênero, mas nenhum filme não foi associado a algum dos $18$ gêneros existentes.
+
+Executar a tarefa de recomendação é dificultada a medida em que o tamanho da base de dados aumenta, e fazê-la sem utilizar um servidor, com uma quantidade maior de memória e processamento exige que não se utilize uma base maior. Devido a essa limitação, utilizou-se a base escolhida. 
 
 \section{Metodologia}
 
@@ -442,6 +455,12 @@ K-means é uma técnica que particiona elementos em $k$ clusters utilizando-se d
 
 \end{enumerate}
 
+\subsection{Informações utilizadas para agrupamento}
+
+Com o intuito de agrupar os usuários em clusters, foram utilizadas duas bases de dados: a avaliação média dos usuários para cada categoria e a proporção de filmes assistidos pelos usuários para cada categoria. No primeiro caso, utilizando o rating médio, houveram casos em que alguns gêneros não receberam nenhuma nota, gerando um dado faltante. Para preencher os valores faltantes foi usada a média de notas por categoria.
+
+Para que tivessem sido geradas algumas possibilidades de resultados utilizando clusterização, os usuários foram agrupados desde em 2 clusters até em 15 grupos para cada algoritmo e para cada base: Rating médio e proporção de filmes assistidos por categoria.
+
 \subsection{Medidas de erro}
 
 Para verificar a acurácia do sistema de recomendação, dado que a base utilizada foi dividida em base de treino e de teste, serão comparadas a avaliação prevista e a avaliação observada. Considerando $r_{i,j}$ a avaliação observada e $p_{i,j}$ a avaliação prevista pelo modelo do usuário $i$ ao item $j$, as medidas utilizadas serão\cite{gorakala2015building}:
@@ -470,31 +489,9 @@ Ao calcular a raiz do EQM obtém-se um número na mesma unidade de medida dos da
 REQM = \sqrt{\frac{1}{nm} \sum_{i=1}^{n} \sum_{j=1}^m \left( r_{i,j} - p_{i,j}  \right)^2}
 \end{equation}
 
+\subsection{Software utilizado}
 
-% \section{Algumas Dicas}
-% 
-% Separe em seções para organizar melhor seu texto. Use os comandos \verb|\section| e \verb|\subsection| para isso. 
-% 
-% Sempre que preciso faça as referências usando o comando \verb|\cite|, como por exemplo, ``para mais informações sobre esse assunto veja o livro de Larson.''
-% 
-% Use os comandos a seguir para apresentar teoremas, definições, proposições, exemplos, etc. Dessa forma a numeração é feita de forma automática. 
-% 
-% {\defi
-% Abra e feche as chaves e dentro delas coloque o comando \verb|\defi| seguido da definição. 
-% }
-% 
-% {\thm
-% Abra e feche as chaves e dentro delas coloque o comando \verb|\thm| seguido do enunciado do teorema. 
-% }
-% 
-% {\prop
-% Abra e feche as chaves e dentro delas coloque o comando \verb|\prop| seguido do enunciado da proposição.
-% }
-% 
-% 
-% {\exe
-% Abra e feche as chaves e dentro delas coloque o comando \verb|\exe| seguido do exemplo.
-% }
+A fim de executar todo o processo de leitura e descrição da base, clusterização e recomendação, foi utilizada a linguagem de progrmação R\cite{R}, por meio do ambiente de desenvolvimento RStudio\cite{RStudio}. O pacote do R \textit{recommenderlab}\cite{recommenderlab} executa a recomendação e sua avaliação, produzindo as medidas de erro.
 
 \chapter{Análise dos Resultados}
 
@@ -507,131 +504,285 @@ Os $6040$ usuários avaliaram pelo menos $20$ filmes. Na figura \ref{hist_num_ra
 \label{hist_num_ratings}
 \end{figure}
 
-A tabela \ref{resumo_rating} apresenta algumas medidas resumo a respeito da quantidade de filmes avaliados pelos usuários. Nota-se uma grande amplitude, variância, desvio padrão e coeficiente de variação, o que indica uma grande variabilidade na quantidade de filmes avaliados. Metade dos usuários avaliou até 96 filmes. Além disso, 75\% dos usuários avaliaram 208 filmes, o que indica, como já foi indicado na figura \ref{hist_num_ratings}, que um número pequeno de usuários, diferentemente do comportamento da maior parte, avaliou uma grande quantidade de filmes.
+A tabela \ref{resumo_rating} apresenta algumas medidas resumo a respeito da quantidade de filmes avaliados pelos usuários. Nota-se uma grande amplitude, variância, desvio padrão e coeficiente de variação, o que indica uma grande variabilidade na quantidade de filmes avaliados. Metade dos usuários avaliou até $96$ filmes. Além disso, $75\%$ dos usuários avaliaram $208$ filmes, o que indica, como já foi indicado na figura \ref{hist_num_ratings}, que um número pequeno de usuários, diferentemente do comportamento da maior parte, avaliou uma grande quantidade de filmes.
 
 \begin{table}[h]
 \caption{Medidas resumo da quantidade de filmes avaliados}
 \label{resumo_rating}
 \centering
-\begin{tabular}{l|l|l|l|l|l|l}
-\hline
-\textbf{Min.} & \textbf{Mediana} & \textbf{Média} & \textbf{Max.} & \textbf{Variância} & \textbf{Desvio padrão} & \textbf{Coef. de variação} \\
-\hline
-20     & 96      & 165.6 & 2314   & 37151     & 193   & 1.16          \\
-\hline
+\begin{tabular}{@{}ccccccc@{}}
+\toprule
+\textbf{Min.} & \textbf{Mediana} & \textbf{Média} & \textbf{Max.} & \textbf{Variância} & \textbf{Desvio padrão} & \textbf{Coef. de variação} \\ \midrule
+20            & 96               & 165.6          & 2314          & 37151              & 193                    & 1.16                       \\ \bottomrule
 \end{tabular}
 \end{table}
 
-% Adicionar número de filmes, gêneros
+A seguir, a tabela \ref{top20_filmes} apresenta os 20 filmes com maior número de avaliações recebidas. Destaca-se a trilogia original de \textit{Star Wars}, cujos filmes receberam, entre si, uma quantidade muito próxima de avaliações dos usuários.
 
-\begin{longtable}{l|l|l|l|l|l}
-\hline
-\textbf{Método}   & \textbf{Informação utilizada}  & \textbf{Clusters}  & \textbf{Raiz do EQM}   & \textbf{EQM}    & \textbf{EMA}    \\
-\hline
+\begin{table}[h]
+\caption{Filmes com mais avaliações recebidas}
+\label{top20_filmes}
+\begin{tabular}{@{}lc@{}}
+\toprule
+\textbf{Filme}                                                 & \textbf{Número de avaliações} \\ \midrule
+American Beauty (1999)                                & 3428    \\
+Star Wars: Episode IV - A New Hope (1977)             & 2991    \\
+Star Wars: Episode V - The Empire Strikes Back (1980) & 2990    \\
+Star Wars: Episode VI - Return of the Jedi (1983)     & 2883    \\
+Jurassic Park (1993)                                  & 2672    \\
+Saving Private Ryan (1998)                            & 2653    \\
+Terminator 2: Judgment Day (1991)                     & 2649    \\
+Matrix, The (1999)                                    & 2590    \\
+Back to the Future (1985)                             & 2583    \\
+Silence of the Lambs, The (1991)                      & 2578    \\
+Men in Black (1997)                                   & 2538    \\
+Raiders of the Lost Ark (1981)                        & 2514    \\
+Fargo (1996)                                          & 2513    \\
+Sixth Sense, The (1999)                               & 2459    \\
+Braveheart (1995)                                     & 2443    \\
+Shakespeare in Love (1998)                            & 2369    \\
+Princess Bride, The (1987)                            & 2318    \\
+Schindler's List (1993)                               & 2304    \\
+L.A. Confidential (1997)                              & 2288    \\
+Groundhog Day (1993)                                  & 2278    \\ \bottomrule
+\end{tabular}
+\end{table}
+
+A distribuição da quantidade de avaliações recebidas pelos filmes na base de dados é apresentada na figura \ref{filmes_ratings}. $114$ filmes receberam apenas uma avaliação, $50\%$ dos filmes receberam $124$ \textit{ratings} e um filme recebeu $2858$ avaliações de usuários. A variabilidade de ratings recebidos pelos filmes é alta, com um coeficiente de variação igual a $1.42$.
+
+\begin{figure}[h]
+\centering
+\includegraphics[]{../R/img/ratings_filmes.png}
+\caption{Número de avaliações recebidas pelos filmes}
+\label{filmes_ratings}
+\end{figure}
+
+A tabela \ref{generos} apresenta a quantidade de filmes aos quais cada gênero foi atribuído. Como cada filme pode ter sido descrito com mais de um gênero, a soma das frequências é maior que o número de filmes. Nota-se que os gêneros aos quais mais filmes foram associados são drama e comédia. O terceiro gênero com mais filmes associados, ação, apresenta menos de metade do número de filmes, em relação aos dois primeiros.
+
+\begin{table}[!htb]
+\caption{Gêneros existentes na base e número de filmes associados}
+\label{generos}
+\centering
+\begin{tabular}{@{}ll@{}}
+\\
+\toprule
+\textbf{Gênero} & \textbf{Número de filmes} \\ \midrule
+Action          & 503                       \\
+Adventure       & 283                       \\
+Animation       & 105                       \\
+Children's      & 251                       \\
+Comedy          & 1200                      \\
+Crime           & 211                       \\
+Documentary     & 127                       \\
+Drama           & 1603                      \\
+Fantasy         & 68                        \\
+Film-Noir       & 44                        \\
+Horror          & 343                       \\
+Musical         & 114                       \\
+Mystery         & 106                       \\
+Romance         & 471                       \\
+Sci-Fi          & 276                       \\
+Thriller        & 492                       \\
+War             & 143                       \\
+Western         & 68                        \\ \bottomrule
+\end{tabular}
+\end{table}
+
+A figura \ref{genero_rating_medio} apresenta as distribuições de nota média recebida para os gêneros presentes na base. A mediana das avaliações médias encontra-se entre $3$ e $4$ estrelas, com apenas os gêneros \textit{War} (guerra), \textit{Film-Noir} (uma espécie de filme policial) e \textit{Documentary} (documentário) atingindo uma mediana igual a $4$. As medianas mais baixas encontram-se em \textit{Horror} e \textit{Sci-Fi} (Ficção científica), com $3.38$ e $3.58$ como medianas, respectivamente.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale = 0.6]{../R/img/rating_medio_genero.png}
+\caption{Distribiuição da avaliação médio por gênero}
+\label{genero_rating_medio}
+\end{figure}
+
+% Ver a recomendação de um usuário apenas
+A seguir será verificada a recomendação para um usuário em específico, que avaliou 20 filmes. A seleção da pessoa foi feita aleatoriamente. Primeiramente devem ser apresentadas as avaliações do usuário aos filmes, para comparar com os filmes que seriam recomendados para ele. A tabela \ref{user_rating} apresenta essa informação.
+
+% Please add the following required packages to your document preamble:
+\begin{longtable}{@{}lll@{}}
+\caption{Avaliações do usuário 341}
+\label{user_rating}\\
+\toprule
+\textbf{Filme}                      & \textbf{Gênero}               & \textbf{Avaliação} \\* \midrule
 \endhead
 %
-CLARA    & Rating         & 3         & 1.0055 & 1.0199 & 0.7983 \\
-k-means   & Proporção      & 12        & 1.0213 & 1.0444 & 0.8093 \\
-k-means   & Proporção      & 8         & 1.024  & 1.0495 & 0.8162 \\
-k-means   & Rating         & 12        & 1.0251 & 1.052  & 0.817  \\
-CLARA    & Rating         & 4         & 1.0254 & 1.0634 & 0.8188 \\
-k-means   & Proporção      & 15        & 1.0266 & 1.055  & 0.8182 \\
-k-means   & Rating         & 11        & 1.0278 & 1.0568 & 0.8156 \\
-CLARA    & Proporção      & 5         & 1.0288 & 1.0599 & 0.816  \\
-k-means   & Rating         & 15        & 1.03   & 1.0624 & 0.8219 \\
-CLARA    & Proporção      & 7         & 1.0315 & 1.0668 & 0.825  \\
-k-means   & Proporção      & 14        & 1.0325 & 1.0667 & 0.8191 \\
-k-means   & Rating         & 13        & 1.0328 & 1.0678 & 0.8193 \\
-k-means   & Proporção      & 6         & 1.0332 & 1.0682 & 0.8225 \\
-k-means   & Proporção      & 13        & 1.0333 & 1.0685 & 0.823  \\
-k-means   & Rating         & 6         & 1.0338 & 1.0688 & 0.8185 \\
-\multicolumn{3}{c}{\textbf{Sem clusterização}} & \textbf{1.0341} & \textbf{1.0693} & \textbf{0.8221} \\
-CLARA    & Proporção      & 12        & 1.0348 & 1.0742 & 0.8215 \\
-k-means   & Rating         & 14        & 1.0351 & 1.0723 & 0.8236 \\
-k-means   & Proporção      & 10        & 1.0358 & 1.074  & 0.8237 \\
-CLARA    & Proporção      & 6         & 1.0367 & 1.0764 & 0.8231 \\
-k-means   & Rating         & 9         & 1.0379 & 1.0775 & 0.8285 \\
-k-means   & Proporção      & 9         & 1.0387 & 1.0795 & 0.8273 \\
-k-means   & Proporção      & 4         & 1.0397 & 1.0814 & 0.8286 \\
-k-means   & Rating         & 3         & 1.0399 & 1.0815 & 0.8278 \\
-k-means   & Rating         & 8         & 1.041  & 1.084  & 0.83   \\
-k-means   & Rating         & 7         & 1.0413 & 1.0846 & 0.8287 \\
-k-means   & Proporção      & 2         & 1.042  & 1.0858 & 0.8295 \\
-CLARA    & Proporção      & 4         & 1.0422 & 1.0871 & 0.8306 \\
-k-means   & Proporção      & 11        & 1.0425 & 1.0884 & 0.8302 \\
-k-means   & Rating         & 10        & 1.0432 & 1.0888 & 0.8322 \\
-k-means   & Proporção      & 3         & 1.0443 & 1.0907 & 0.8345 \\
-k-means   & Rating         & 5         & 1.0446 & 1.0914 & 0.8351 \\
-CLARA    & Proporção      & 3         & 1.0447 & 1.0921 & 0.8301 \\
-CLARA    & Proporção      & 8         & 1.0452 & 1.1013 & 0.8348 \\
-k-means   & Rating         & 4         & 1.0462 & 1.0946 & 0.8351 \\
-CLARA    & Proporção      & 15        & 1.0468 & 1.1028 & 0.8378 \\
-k-means   & Rating         & 2         & 1.0476 & 1.0975 & 0.8378 \\
-CLARA    & Proporção      & 2         & 1.0476 & 1.0976 & 0.835  \\
-k-means   & Proporção      & 7         & 1.0518 & 1.1075 & 0.8368 \\
-CLARA    & Proporção      & 9         & 1.0585 & 1.1221 & 0.8452 \\
-k-means   & Proporção      & 5         & 1.0602 & 1.1242 & 0.8407 \\
-CLARA    & Proporção      & 11        & 1.0639 & 1.1374 & 0.8448 \\
-CLARA    & Proporção      & 10        & 1.0734 & 1.1555 & 0.8576 \\
-CLARA    & Proporção      & 14        & 1.0761 & 1.1611 & 0.8614 \\
-CLARA    & Proporção      & 13        & 1.0762 & 1.1642 & 0.8573 \\
-CLARA    & Rating         & 2         & 1.0827 & 1.1792 & 0.8711 \\
-CLARA    & Rating         & 6         & 1.0894 & 1.2354 & 0.8881 \\
-CLARA    & Rating         & 13        & 1.0948 & 1.2513 & 0.8915 \\
-CLARA    & Rating         & 10        & 1.1087 & 1.2502 & 0.9061 \\
-CLARA    & Rating         & 9         & 1.1091 & 1.2444 & 0.8942 \\
-CLARA    & Rating         & 14        & 1.1165 & 1.3091 & 0.9202 \\
-CLARA    & Rating         & 11        & 1.1167 & 1.2909 & 0.9197 \\
-CLARA    & Rating         & 5         & 1.1194 & 1.2743 & 0.9096 \\
-CLARA    & Rating         & 7         & 1.1282 & 1.299  & 0.928  \\
-CLARA    & Rating         & 8         & 1.1377 & 1.3082 & 0.9302 \\
-CLARA    & Rating         & 12        & 1.1867 & 1.5236 & 0.9671 \\
-CLARA    & Rating         & 15        & 1.1926 & 1.4865 & 0.9851 \\
-\hline
+\bottomrule
+\endfoot
+%
+\endlastfoot
+%
+Nikita (La Femme Nikita) (1990)     & Thriller                      & 5                  \\
+Mission: Impossible (1996)          & Action, Adventure, Mystery      & 5                  \\
+Somewhere in Time (1980)            & Drama, Romance                 & 5                  \\
+East of Eden (1955)                 & Drama                         & 5                  \\
+Braveheart (1995)                   & Action, Drama, War              & 5                  \\
+Hard-Boiled (Lashou shentan) (1992) & Action, Crime                  & 5                  \\
+Out of Sight (1998)                 & Action, Crime, Romance          & 5                  \\
+American Beauty (1999)              & Comedy, Drama                  & 5                  \\
+Airplane! (1980)                    & Comedy                        & 5                  \\
+Boat, The (Das Boot) (1981)         & Action, Drama, War              & 5                  \\
+Contact (1997)                      & Drama, Sci-Fi                  & 4                  \\
+Frequency (2000)                    & Drama, Thriller                & 4                  \\
+Superman (1978)                     & Action, Adventure, Sci-Fi       & 4                  \\
+Tank Girl (1995)                    & Action, Comedy, Musical, Sci-Fi  & 4                  \\
+Alien (1979)                        & Action, Horror, Sci-Fi, Thriller & 4                  \\
+Pitch Black (2000)                  & Action, Sci-Fi                 & 3                  \\
+Shanghai Noon (2000)                & Action                        & 3                  \\
+Run Lola Run (Lola rennt) (1998)    & Action, Crime, Romance          & 3                  \\
+Jurassic Park (1993)                & Action, Adventure, Sci-Fi       & 3                  \\
+Perfect Storm, The (2000)           & Action, Adventure, Thriller     & 2                  \\* \bottomrule
 \end{longtable}
-% Neste capítulo deve-se apresentar os resultados, podendo comentá-los e discuti-los, comparando-os com resultados da bibliografia já existente. Use seções, se apropriado.
-% 
-% Para que as tabelas e figuras sejam incluídas corretamente nas listas de tabelas e figuras use os comandos 
-% \verb|\begin{table}...\end{table}| e \verb|\begin{figure}...\end{figure}|. Veja como nos exemplos a seguir.
-% 
-% Primeiro o exemplo de uma tabela. 
-% 
-% \begin{table}[h!]
-% \centering
-% \caption{Tabela exemplo} \label{fig:exemplo}
-% \begin{tabular}{cc}
-% \hline
-% Ano & Produção (1.000t)\\
-% \hline
-% 1996 & 2.536\\
-% 1997 & 2.666\\
-% 1998 & 3.750\\
-% 1999 & 2.007\\
-% 2000 & 2.080\\
-% \hline
-% \end{tabular}
-% \end{table}
-% 
-% Agora veja como incluir figuras.
-% 
-% \begin{figure}[h!]
-% \centering
-% \includegraphics[width=0.5\linewidth]{logoUFF.pdf}
-% \caption{Figura exemplo} \label{tab:exemplo}
-% \end{figure}
-% 
-% Use o comando \verb|ref| para fazer referências das tabelas e figuras ao longo do texto. Por exemplo, podemos nos referencias à Figura \ref{fig:exemplo} ou à Tabela \ref{tab:exemplo}. 
-% 
-% O mesmo comando \verb|ref| pode ser usado para fazer referência à capítulos, seções, equações, etc. Basta que tenha sido definido um \verb|label| para cada um deles. Por exemplo, se quisermos fazer referência ao número do capítulo Introdução basta digitar \verb|\ref{cap:introducao}|, veja como: ``... como comentado no Capítulo \ref{cap:introducao}, na introdução deste trabalho''. 
+
+De acordo com a tabela \ref{user_rating}, nota-se que a maior parte dos filmes avaliados é do gênero de ação, porém alguns receberam avaliações muito boas, de $5$ estrelas, enquanto alguns receberam apenas $3$ ou até mesmo $2$ estrelas. Os filmes que contém comédia, drama ou guerra em geral receberam boas notas, com, pelo menos $4$ estrelas.
+
+Ao executar o sistema de recomendação, selecionando as 10 maiores avaliações previstas, tem-se uma recomendação de 10 filmes para esse usuário. A tabela \ref{recom_usuario} apresenta o que seria a recomendação dos filmes.
+
+\begin{longtable}{@{}lll@{}}
+\caption{10 maiores notas previstas para o usuário 341}
+\label{recom_usuario}\\
+\toprule
+\textbf{Filme}              & \textbf{Gênero}                  & \textbf{Avaliação} \\* \midrule
+\endhead
+%
+\bottomrule
+\endfoot
+%
+\endlastfoot
+%
+Pulp Fiction (1994)         & Crime, Drama                      & 4.55               \\
+Schindler's List (1993)     & Drama, War                        & 4.55               \\
+Casablanca (1942)           & Drama, Romance, War                & 4.52               \\
+Sixth Sense, The (1999)     & Thriller                         & 4.51               \\
+L.A. Confidential (1997)    & Crime, Film-Noir, Mystery, Thriller & 4.51               \\
+Gladiator (2000)            & Action, Drama                     & 4.49               \\
+Being John Malkovich (1999) & Comedy                           & 4.48               \\
+Saving Private Ryan (1998)  & Action, Drama, War                 & 4.48               \\
+Godfather, The (1972)       & Action, Crime, Drama               & 4.47               \\
+Shakespeare in Love (1998)  & Comedy, Romance                   & 4.47               \\* \bottomrule
+\end{longtable}
+
+A recomendação, levando em conta os gêneros, é aceitável, pois verifica-se notas altas previstas a filmes de drama, guerra, comédia, e até ação. Os três primeiros gêneros receberam apenas avaliações boas pelo usuário, mas o último recebeu avaliações positivas e também negativas, mas muitos dos filmes avaliados eram desse gênero, o que pode indicar algum interesse do usuário por este tipo de filme. Além disso, destaca-se o filme \textit{L.A. Confidential}, que é associado ao gênero \textit{Film-Noir}, sendo próximo de filmes de ação ou crime.
+
+A seguir serão apresentados a raiz do erro quadrático médio, o erro quadrático médio e erro médio absoluto entre avaliação prevista e observada. O número de clusters foi variado entre 2 e 15, utilizando as técnicas CLARA e k-means. Como a tabela \ref{erros_rec} apresenta, a instância "Sem clusterização" é a recomendação executada sem que os usuários fossem agrupados. A tabela está ordenada de acordo com a raiz do EQM, em ordem crescente.
+
+\begin{longtable}{@{}llcccc@{}}
+\caption{Medidas de erro considerando as várias configurações}
+\label{erros_rec}
+\\
+\toprule
+\textbf{Método}   & \textbf{Informação utilizada}   & \textbf{Clusters}   & \textbf{Raiz do EQM}     & \textbf{EQM}             & \textbf{EMA}             \\* \midrule
+\endhead
+%
+\bottomrule
+\endfoot
+%
+\endlastfoot
+%
+CLARA    & Rating                 & 3          & 1.0055          & 1.0199          & 0.7983          \\
+k-means   & Proporção              & 12         & 1.0213          & 1.0444          & 0.8093          \\
+k-means   & Proporção              & 8          & 1.024           & 1.0495          & 0.8162          \\
+k-means   & Rating                 & 12         & 1.0251          & 1.052           & 0.817           \\
+CLARA    & Rating                 & 4          & 1.0254          & 1.0634          & 0.8188          \\
+k-means   & Proporção              & 15         & 1.0266          & 1.055           & 0.8182          \\
+k-means   & Rating                 & 11         & 1.0278          & 1.0568          & 0.8156          \\
+CLARA    & Proporção              & 5          & 1.0288          & 1.0599          & 0.816           \\
+k-means   & Rating                 & 15         & 1.03            & 1.0624          & 0.8219          \\
+CLARA    & Proporção              & 7          & 1.0315          & 1.0668          & 0.825           \\
+k-means   & Proporção              & 14         & 1.0325          & 1.0667          & 0.8191          \\
+k-means   & Rating                 & 13         & 1.0328          & 1.0678          & 0.8193          \\
+k-means   & Proporção              & 6          & 1.0332          & 1.0682          & 0.8225          \\
+k-means   & Proporção              & 13         & 1.0333          & 1.0685          & 0.823           \\
+k-means   & Rating                 & 6          & 1.0338          & 1.0688          & 0.8185          \\
+\multicolumn{3}{c}{\textbf{Sem clusterização}} & \textbf{1.0341} & \textbf{1.0693} & \textbf{0.8221} \\
+CLARA    & Proporção              & 12         & 1.0348          & 1.0742          & 0.8215          \\
+k-means   & Rating                 & 14         & 1.0351          & 1.0723          & 0.8236          \\
+k-means   & Proporção              & 10         & 1.0358          & 1.074           & 0.8237          \\
+CLARA    & Proporção              & 6          & 1.0367          & 1.0764          & 0.8231          \\
+k-means   & Rating                 & 9          & 1.0379          & 1.0775          & 0.8285          \\
+k-means   & Proporção              & 9          & 1.0387          & 1.0795          & 0.8273          \\
+k-means   & Proporção              & 4          & 1.0397          & 1.0814          & 0.8286          \\
+k-means   & Rating                 & 3          & 1.0399          & 1.0815          & 0.8278          \\
+k-means   & Rating                 & 8          & 1.041           & 1.084           & 0.83            \\
+k-means   & Rating                 & 7          & 1.0413          & 1.0846          & 0.8287          \\
+k-means   & Proporção              & 2          & 1.042           & 1.0858          & 0.8295          \\
+CLARA    & Proporção              & 4          & 1.0422          & 1.0871          & 0.8306          \\
+k-means   & Proporção              & 11         & 1.0425          & 1.0884          & 0.8302          \\
+k-means   & Rating                 & 10         & 1.0432          & 1.0888          & 0.8322          \\
+k-means   & Proporção              & 3          & 1.0443          & 1.0907          & 0.8345          \\
+k-means   & Rating                 & 5          & 1.0446          & 1.0914          & 0.8351          \\
+CLARA    & Proporção              & 3          & 1.0447          & 1.0921          & 0.8301          \\
+CLARA    & Proporção              & 8          & 1.0452          & 1.1013          & 0.8348          \\
+k-means   & Rating                 & 4          & 1.0462          & 1.0946          & 0.8351          \\
+CLARA    & Proporção              & 15         & 1.0468          & 1.1028          & 0.8378          \\
+k-means   & Rating                 & 2          & 1.0476          & 1.0975          & 0.8378          \\
+CLARA    & Proporção              & 2          & 1.0476          & 1.0976          & 0.835           \\
+k-means   & Proporção              & 7          & 1.0518          & 1.1075          & 0.8368          \\
+CLARA    & Proporção              & 9          & 1.0585          & 1.1221          & 0.8452          \\
+k-means   & Proporção              & 5          & 1.0602          & 1.1242          & 0.8407          \\
+CLARA    & Proporção              & 11         & 1.0639          & 1.1374          & 0.8448          \\
+CLARA    & Proporção              & 10         & 1.0734          & 1.1555          & 0.8576          \\
+CLARA    & Proporção              & 14         & 1.0761          & 1.1611          & 0.8614          \\
+CLARA    & Proporção              & 13         & 1.0762          & 1.1642          & 0.8573          \\
+CLARA    & Rating                 & 2          & 1.0827          & 1.1792          & 0.8711          \\
+CLARA    & Rating                 & 6          & 1.0894          & 1.2354          & 0.8881          \\
+CLARA    & Rating                 & 13         & 1.0948          & 1.2513          & 0.8915          \\
+CLARA    & Rating                 & 10         & 1.1087          & 1.2502          & 0.9061          \\
+CLARA    & Rating                 & 9          & 1.1091          & 1.2444          & 0.8942          \\
+CLARA    & Rating                 & 14         & 1.1165          & 1.3091          & 0.9202          \\
+CLARA    & Rating                 & 11         & 1.1167          & 1.2909          & 0.9197          \\
+CLARA    & Rating                 & 5          & 1.1194          & 1.2743          & 0.9096          \\
+CLARA    & Rating                 & 7          & 1.1282          & 1.299           & 0.928           \\
+CLARA    & Rating                 & 8          & 1.1377          & 1.3082          & 0.9302          \\
+CLARA    & Rating                 & 12         & 1.1867          & 1.5236          & 0.9671          \\
+CLARA    & Rating                 & 15         & 1.1926          & 1.4865          & 0.9851          \\* \bottomrule
+\end{longtable}
+
+Um fato muito notório ao observar as primeiras linhas é que o método CLARA apresentou melhores resultados com um número menor de clusters, de até $5$ grupos, enquanto que o K-means apresentou bons resultados com um número maior de grupos, de $8$ até $15$, número máximo de clusters.
+
+O valor de referência é o erro obtido ao executar a recomendação sem o particionamento da base. O valor mais baixo da raiz do EQM, utilizando a técnica CLARA a partir do rating médio dos usuários aos gêneros, com 3 clusters, de $1.0055$ é aproximadamente $3\%$ menor que a mesma medida sem o particionamento dos usuários. Por outro lado, o maior erro também foi atingido através do rating médio, com o algoritmo que executa a técnica CLARA, mas desta vez com $15$ clusters. 
+
+Apesar de terem sido obtidos $15$ resultados melhores, em relação ao atingido com toda a base, mais de $40$ resultados, ao clusterizar os usuários, foram ainda piores que o valor de referência, o que indica que o uso de um método de particionamento não garante um melhor resultado.
+
+Por outro lado, ao agrupar os usuários o tempo de processamento diminuiu, como indica a tabela \ref{tempos}, percebe-se uma tendência ao decréscimo do tempo necessário, com uma diferença de aproximadamente $100$ segundos entre a recomendação com a base completa e com 15 clusters, com a técnica CLARA, tendo sido utilizado o rating médio.
+
+\begin{longtable}{@{}llll@{}}
+\caption{Tempos de execução da recomendação (em segundos)}
+\label{tempos}\\
+\toprule
+\textbf{Método} & \textbf{Informação} & \textbf{Clusters} & \textbf{Tempo (s)} \\  \midrule
+\endhead
+%
+\multicolumn{3}{c}{\textbf{Sem clusterização}}                     & \textbf{130}                \\
+CLARA           & Rating              & 2                 & 84                 \\
+CLARA           & Rating              & 3                 & 62                 \\
+CLARA           & Rating              & 4                 & 46                 \\
+CLARA           & Rating              & 5                 & 46                 \\
+CLARA           & Rating              & 6                 & 40                 \\
+CLARA           & Rating              & 7                 & 37                 \\
+CLARA           & Rating              & 8                 & 42                 \\
+CLARA           & Rating              & 9                 & 32                 \\
+CLARA           & Rating              & 10                & 32                 \\
+CLARA           & Rating              & 11                & 32                 \\
+CLARA           & Rating              & 12                & 34                 \\
+CLARA           & Rating              & 13                & 31                 \\
+CLARA           & Rating              & 14                & 33                 \\
+CLARA           & Rating              & 15                & 30 \\ \bottomrule                
+\end{longtable}  
 
 \chapter{Conclusão}
 
-% Para finalizar seu trabalho faça o capítulo de conclusão. Neste capítulo deve ser feito um breve resumo de tudo que foi feito e as principais conclusões obtidas.
-% 
+O trabalho buscou verificar se existia alguma diferença entre a acurácia da filtragem colaborativa, considerando a base completa de avaliações e a divisão dos usuários em clusters, para executar a filtragem dentro de cada grupo. A diferença entre as medidas de erro do valor de referência e da configuração que obteve o menor erro não é tão significante, e, desse pequeno ganho de acurácia, para alguns números de clusters, a maior parte das tentativas de clusterização obtiveram resultado pior, de acordo com as medidas de erro. 
 
+A presença de alguns usuários que avaliaram muito filmes, como o caso de um que avaliou $2314$ filmes pode ser explicada pelo fato de que o site oferece serviço de recomendação de filmes, e isso pode atrair pessoas que têm hábito de assistir mais filmes do que a maior parte das pessoas. Numa outra situação, o número de itens avaliados pode ser bem menor.
 
-%A bibliografia é feita automaticamente com o comando abaixo
-%No arquivo referencias.bib devem ser incluídos todos os textos referenciados nesse trabalho.
+Ao verificar a recomendação de um usuário específico pôde ser constatado que os filmes recomendados não parecem ser completamente ao acaso, aleatórios, mas sim, são de alguma forma similares aos avaliados pelo usuário. Além disso os filmes recomendados foram classificados por gêneros em geral bem avaliados pela pessoa.
+
+Com relação ao tempo de execução, o agrupamento dos usuários foi uma tarefa fácil, não havendo nem um momento de espera pela execução da função pelo software R. Já no momento de executar a recomendação e calcular o erro gerado, um maior tempo foi necessário, além de utilizar uma quantidade razoavelmente grande de memória do computador, considerando um dispositivo de $8$Gb de memória.
+
+O tempo gasto no processamento das recomendações, por outro lado, foi consideravelmente menor quando utilizou-se o agrupamento de usuários. Com isso, uma boa escolha de clusters pode ser muito vantajosa, por economizar tempo de processamento e ter maior acertividade. Trabalhos futuros podem buscar associar técnicas para escolha do número de clusters com a acurácia das recomendações.
+
 \bibliographystyle{abnt-num} %abnt-num ou abnt-alf
 \bibliography{referencias}
 
@@ -641,13 +792,13 @@ CLARA    & Rating         & 15        & 1.1926 & 1.4865 & 0.9851 \\
 
 
 
-\chapter{Título do primeiro anexo}
+% \chapter{Título do primeiro anexo}
 
 % Caso você ache interessante, adicione anexos ao trabalho. Estes devem vir depois das referências bibliográficas. 
 
 
 
-\chapter{Título do segundo anexo}
+% \chapter{Título do segundo anexo}
 
 % Dessa forma você pode incluir quantos anexos quiser. 
 
