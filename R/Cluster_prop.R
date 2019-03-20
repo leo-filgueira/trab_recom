@@ -1,5 +1,7 @@
 # Cluster com proporção de filmes por genero
 
+ptm_clara_prop <- Sys.time()
+
 dados3 <- dados %>%
   left_join(filmes) %>% 
   select(-Timestamp) %>% 
@@ -17,10 +19,17 @@ dados3 <- dados3 %>%
   as.data.frame() %>% 
   column_to_rownames("UserID")
 
+tempo_clara_prop <- difftime(Sys.time(), ptm_clara_prop, units = "secs")
+
 # library(factoextra)
 # fviz_nbclust(dados3, clara, method = "silhouette") +
 #   theme_classic()
 
 for(i in 2:15){
-  assign(paste0("lista_clara_", i, "_prop"), clara(dados3, i, correct.d = T))
+  ptm <- Sys.time()
+  result <- clara(dados3, i, correct.d = T)
+  tempo <- difftime(Sys.time(), ptm, units = "secs")
+  
+  assign(paste0("lista_clara_", i, "_prop"), result)
+  assign(paste0("tempo_clara_prop_", i), tempo + tempo_clara_prop)
 }
