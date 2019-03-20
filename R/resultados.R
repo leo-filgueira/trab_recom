@@ -32,8 +32,8 @@ dados %>%
     filmes %>% 
       select(MovieID, Filme)
   ) %>% 
-  select(Filme, n) %>% 
-  write.csv2("R/csv/top20_filmes.csv", row.names = F)
+  select(Filme, n)# %>% 
+  # write.csv2("R/csv/top20_filmes.csv", row.names = F)
 
 filmes_ratings <- dados %>% 
   count(MovieID) %>% 
@@ -58,8 +58,19 @@ filmes %>%
   as_data_frame() %>% 
   gather(key, Genero, -MovieID, -Filme) %>% 
   count(Genero) %>% 
-  write.csv2("R/csv/generos.csv", row.names = F)
-  filter(!is.na(Genero)) 
+  # write.csv2("R/csv/generos.csv", row.names = F)
+  filter(!is.na(Genero)) %>% 
+  left_join(
+    dados %>%
+      left_join(filmes) %>% 
+      as_tibble() %>% 
+      select(UserID, MovieID, starts_with("g")) %>% 
+      gather(key, Genero, -UserID, -MovieID) %>% 
+      select(-key) %>% 
+      group_by(Genero) %>% 
+      summarise(prop = round(n_distinct(UserID)/n_distinct(dados$UserID), 4))
+  ) %>% 
+  write.csv("R/generos_proporcao.csv", row.names = F)
 
 
 rating_medio_genero <- dados2 %>% 
