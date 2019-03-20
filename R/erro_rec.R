@@ -8,7 +8,7 @@ rmatrix <- as(dados %>%
                 as.data.frame(), "realRatingMatrix")
 
 min(rowCounts(rmatrix))
-system.time({
+ptm <- Sys.time()
 model_train_scheme <- evaluationScheme(rmatrix, train = 0.7, goodRating = 4, given = 18)
 
 model <- getData(model_train_scheme, "train") %>% #only fit on the 70% training data.
@@ -16,159 +16,95 @@ model <- getData(model_train_scheme, "train") %>% #only fit on the 70% training 
 
 model_pred <- predict(model, getData(model_train_scheme, "known"), type = "ratings")
 test_error <- calcPredictionAccuracy(model_pred, getData(model_train_scheme, "unknown"), byUser = F)
-})
+tempo_total <- difftime(Sys.time(), ptm, units = "secs")
 head(test_error)
 summary(test_error)
 
-# boxplot(test_error, main = "Todos os usuários")
 
 ## Erro com clusters
-
-# # Cluster 1
-# cluster1 <- cluster1 %>% 
-#   select(-cluster) %>% 
-#   as.data.frame()
-#   
-# teste <- as(cluster1, "realRatingMatrix")
-# 
-# min(rowCounts(teste))
-# 
-# model_train_scheme <- evaluationScheme(teste, train = 0.7, goodRating = 4, given = 18)
-# 
-# model1 <- getData(model_train_scheme, "train") %>% #only fit on the 75% training data.
-#   Recommender(method = "UBCF", parameter = list(method = "pearson"))
-# 
-# model1_pred <- predict(model1, getData(model_train_scheme, "known"), type = "ratings")
-# test_error_cl1 <- calcPredictionAccuracy(model1_pred, getData(model_train_scheme, "unknown"), byUser = TRUE)
-# 
-# head(test_error_cl1)
-# summary(test_error_cl1)
-# 
-# # Cluster 2
-# cluster2 <- cluster2 %>% 
-#   select(-cluster) %>% 
-#   as.data.frame()
-# 
-# teste <- as(cluster2, "realRatingMatrix")
-# 
-# min(rowCounts(teste))
-# 
-# model_train_scheme <- evaluationScheme(teste, train = 0.7, goodRating = 4, given = 18)
-# 
-# model2 <- getData(model_train_scheme, "train") %>% #only fit on the 75% training data.
-#   Recommender(method = "UBCF", parameter = list(method = "pearson"))
-# 
-# model2_pred <- predict(model2, getData(model_train_scheme, "known"), type = "ratings")
-# test_error_cl2 <- calcPredictionAccuracy(model2_pred, getData(model_train_scheme, "unknown"), byUser = TRUE)
-# 
-# head(test_error_cl2)
-# summary(test_error_cl2)
-# 
-# # Cluster 3
-# cluster3 <- cluster3 %>% 
-#   select(-cluster) %>% 
-#   as.data.frame()
-# 
-# teste <- as(cluster3, "realRatingMatrix")
-# 
-# min(rowCounts(teste))
-# 
-# model_train_scheme <- evaluationScheme(teste, train = 0.7, goodRating = 4, given = 18)
-# 
-# model3 <- getData(model_train_scheme, "train") %>% #only fit on the 75% training data.
-#   Recommender(method = "UBCF", parameter = list(method = "pearson"))
-# 
-# model3_pred <- predict(model3, getData(model_train_scheme, "known"), type = "ratings")
-# test_error_cl3 <- calcPredictionAccuracy(model3_pred, getData(model_train_scheme, "unknown"), byUser = TRUE)
-# 
-# head(test_error_cl3)
-# summary(test_error_cl3)
-# 
-# # Cluster 4
-# cluster4 <- cluster4 %>% 
-#   select(-cluster) %>% 
-#   as.data.frame()
-# 
-# teste <- as(cluster4, "realRatingMatrix")
-# 
-# min(rowCounts(teste))
-# 
-# model_train_scheme <- evaluationScheme(teste, train = 0.7, goodRating = 4, given = 18)
-# 
-# model4 <- getData(model_train_scheme, "train") %>% #only fit on the 75% training data.
-#   Recommender(method = "UBCF", parameter = list(method = "pearson"))
-# 
-# model4_pred <- predict(model4, getData(model_train_scheme, "known"), type = "ratings")
-# test_error_cl4 <- calcPredictionAccuracy(model4_pred, getData(model_train_scheme, "unknown"), byUser = TRUE)
-# 
-# head(test_error_cl4)
-# summary(test_error_cl4)
-# 
-# erro_cluster <- rbind(test_error_cl1, test_error_cl2, 
-#                       test_error_cl3, test_error_cl4)
-# 
-# par(mar = c(2, 2.5, 1.55, 1), mfrow = c(2, 1))
-# boxplot(test_error, main = "Todos os usuários")
-# boxplot(erro_cluster, main = "Clusters")  
-# 
-# par(mfrow = c(2, 2), mar = c(2, 2.5, 1.55, 1))
-
 # Erros com cluster CLARA a partir do rating
-system.time({
+ptm <- Sys.time()
 c2_rating_clara <- erro_cluster(dados_cluster, cluster_2_rating)
-})
+tempo_clara_rating_2 <- tempo_clara_rating_2 + 
+  difftime(Sys.time(), ptm, units = "secs")
 c2_rating_clara
 
-system.time({
-c3_rating_clara <- erro_cluster(dados_cluster, cluster_3_rating)})
+ptm <- Sys.time()
+c3_rating_clara <- erro_cluster(dados_cluster, cluster_3_rating)
+tempo_clara_rating_3 <- tempo_clara_rating_3 + 
+  difftime(Sys.time(), ptm, units = "secs")
 c3_rating_clara
 
-system.time({
-c4_rating_clara <- erro_cluster(dados_cluster, cluster_4_rating)})
+ptm <- Sys.time()
+c4_rating_clara <- erro_cluster(dados_cluster, cluster_4_rating)
+tempo_clara_rating_4 <- tempo_clara_rating_4 + 
+  difftime(Sys.time(), ptm, units = "secs")
 c4_rating_clara
 
-system.time({
-c5_rating_clara <- erro_cluster(dados_cluster, cluster_5_rating)})
+ptm <- Sys.time()
+c5_rating_clara <- erro_cluster(dados_cluster, cluster_5_rating)
+tempo_clara_rating_5 <- tempo_clara_rating_5 + 
+  difftime(Sys.time(), ptm, units = "secs")
 c5_rating_clara
 
-system.time({
-c6_rating_clara <- erro_cluster(dados_cluster, cluster_6_rating)})
+ptm <- Sys.time()
+c6_rating_clara <- erro_cluster(dados_cluster, cluster_6_rating)
+tempo_clara_rating_6 <- tempo_clara_rating_6 + 
+  difftime(Sys.time(), ptm, units = "secs")
 c6_rating_clara
 
-system.time({
-c7_rating_clara <- erro_cluster(dados_cluster, cluster_7_rating)})
+ptm <- Sys.time()
+c7_rating_clara <- erro_cluster(dados_cluster, cluster_7_rating)
+tempo_clara_rating_7 <- tempo_clara_rating_7 + 
+  difftime(Sys.time(), ptm, units = "secs")
 c7_rating_clara
 
-system.time({
-c8_rating_clara <- erro_cluster(dados_cluster, cluster_8_rating)})
+ptm <- Sys.time()
+c8_rating_clara <- erro_cluster(dados_cluster, cluster_8_rating)
+tempo_clara_rating_8 <- tempo_clara_rating_8 + 
+  difftime(Sys.time(), ptm, units = "secs")
 c8_rating_clara
 
-system.time({
-c9_rating_clara <- erro_cluster(dados_cluster, cluster_9_rating)})
+ptm <- Sys.time()
+c9_rating_clara <- erro_cluster(dados_cluster, cluster_9_rating)
+tempo_clara_rating_9 <- tempo_clara_rating_9 + 
+  difftime(Sys.time(), ptm, units = "secs")
 c9_rating_clara
 
-system.time({
-c10_rating_clara <- erro_cluster(dados_cluster, cluster_10_rating)})
+ptm <- Sys.time()
+c10_rating_clara <- erro_cluster(dados_cluster, cluster_10_rating)
+tempo_clara_rating_10 <- tempo_clara_rating_10 + 
+  difftime(Sys.time(), ptm, units = "secs")
 c10_rating_clara
 
-system.time({
-c11_rating_clara <- erro_cluster(dados_cluster, cluster_11_rating)})
+ptm <- Sys.time()
+c11_rating_clara <- erro_cluster(dados_cluster, cluster_11_rating)
+tempo_clara_rating_11 <- tempo_clara_rating_11 + 
+  difftime(Sys.time(), ptm, units = "secs")
 c11_rating_clara
 
-system.time({
-c12_rating_clara <- erro_cluster(dados_cluster, cluster_12_rating)})
+ptm <- Sys.time()
+c12_rating_clara <- erro_cluster(dados_cluster, cluster_12_rating)
+tempo_clara_rating_12 <- tempo_clara_rating_12 + 
+  difftime(Sys.time(), ptm, units = "secs")
 c12_rating_clara
 
-system.time({
-c13_rating_clara <- erro_cluster(dados_cluster, cluster_13_rating)})
+ptm <- Sys.time()
+c13_rating_clara <- erro_cluster(dados_cluster, cluster_13_rating)
+tempo_clara_rating_13 <- tempo_clara_rating_13 + 
+  difftime(Sys.time(), ptm, units = "secs")
 c13_rating_clara
 
-system.time({
-c14_rating_clara <- erro_cluster(dados_cluster, cluster_14_rating)})
+ptm <- Sys.time()
+c14_rating_clara <- erro_cluster(dados_cluster, cluster_14_rating)
+tempo_clara_rating_14 <- tempo_clara_rating_14 + 
+  difftime(Sys.time(), ptm, units = "secs")
 c14_rating_clara
 
-system.time({
-c15_rating_clara <- erro_cluster(dados_cluster, cluster_15_rating)})
+ptm <- Sys.time()
+c15_rating_clara <- erro_cluster(dados_cluster, cluster_15_rating)
+tempo_clara_rating_15 <- tempo_clara_rating_15 + 
+  difftime(Sys.time(), ptm, units = "secs")
 c15_rating_clara
 
 # Erros com cluster CLARA a partir da proporção

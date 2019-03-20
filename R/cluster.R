@@ -14,6 +14,8 @@ names(dados) <- c("UserID", "MovieID", "Rating", "Timestamp")
 
 not_all_na <- function(x) any(!is.na(x))
 
+ptm_clara_rating <- Sys.time()
+  
 filmes <- filmes %>% 
   separate(Genero, paste0("g", 1:10), "\\|") %>% 
   select_if(not_all_na) 
@@ -34,12 +36,19 @@ dados2 <- dados2 %>%
   as.data.frame() %>% 
   column_to_rownames("UserID")
 
+tempo_clara_rating <- difftime(Sys.time(), ptm_clara_rating, units = "secs")
+
 # library(factoextra)
 # fviz_nbclust(dados2, clara, method = "silhouette") +
 #   theme_classic()
 
 for(i in 2:15){
-  assign(paste0("lista_clara_", i), clara(dados2, i, correct.d = T))
+  ptm <- Sys.time()
+  result <- clara(dados2, i, correct.d = T)
+  tempo <- difftime(Sys.time(), ptm, units = "secs")
+  
+  assign(paste0("lista_clara_", i), result)
+  assign(paste0("tempo_clara_rating_", i), tempo + tempo_clara_rating)
 }
 
 # Script cm clusters por proporção de filmes assistidos por genero
@@ -81,3 +90,14 @@ dados_cluster <- dados %>%
 # cluster3 <- cluster_splitado[[3]]
 # cluster4 <- cluster_splitado[[4]]
 
+matriz_full <- dados_cluster %>% 
+  select(UserID, MovieID, Rating) %>%
+  mutate(Rating = as.numeric(Rating)) %>% 
+  spread(MovieID, Rating)
+
+matriz_full %>% 
+  select(-1) %>% 
+  summarise_all(function(x){sum(!is.na(x))}) %>% 
+  rowSums() %>% 
+  (function(x){x/sum(is.na(matriz_full[, -1]))})
+# Proprorção de ratings em relação aos itens não avaliados: 0.04677364
