@@ -431,8 +431,3 @@ erro <- test_error %>%
     erro_cl_prop_kmeans %>% 
       mutate(Tipo_cluster = "Proporção"))
 
-erro %>% 
-  arrange_at(vars(1:3)) %>% 
-  select(metodo, Tipo_cluster, Clusters = num_clusters, everything()) %>% 
-  mutate_at(vars(4:6), funs(round(., 4))) %>% 
-  write.csv("R/Erro_recomendacao_15clusters_v2.csv", row.names = F)
